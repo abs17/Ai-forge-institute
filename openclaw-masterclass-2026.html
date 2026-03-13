@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="fr" id="html-root" class="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenClaw Academy 2026 — Masterclass IA Self-Paced</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        lobster: { DEFAULT: '#FF6B00', light: '#E55A00', glow: 'rgba(255,107,0,0.4)' },
+        cyan: { neon: '#00F5FF', soft: '#00D4FF' },
+        bg: { dark: '#0A0A0A', light: '#F5F2ED' },
+        card: { dark: '#111111', light: '#FFFFFF' }
+      },
+      fontFamily: {
+        display: ['Syne', 'sans-serif'],
+        body: ['Outfit', 'sans-serif'],
+        mono: ['DM Mono', 'monospace']
+      }
+    }
+  }
+}
+</script>
+<style>
+:root {
+  --lobster: #FF6B00;
+  --lobster-glow: rgba(255,107,0,0.35);
+  --cyan-neon: #00F5FF;
+  --bg-dark: #0A0A0A;
+  --bg-light: #F5F2ED;
+  --speed: 300ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--speed) ease, color var(--speed) ease;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+.light ::-webkit-scrollbar-track { background: var(--bg-light); }
+::-webkit-scrollbar-thumb { background: var(--lobster); border-radius: 10px; }
+
+/* DARK / LIGHT BASE */
+.dark body, body.dark-mode { background: #0A0A0A; color: #F0EDE8; }
+.light body, body.light-mode { background: #F5F2ED; color: #1A1A1A; }
+
+/* NEON EFFECTS */
+.neon-lobster { box-shadow: 0 0 20px var(--lobster-glow), 0 0 6px var(--lobster); }
+.neon-cyan { box-shadow: 0 0 20px rgba(0,245,255,0.3), 0 0 5px #00F5FF; }
+.text-neon-cyan { text-shadow: 0 0 12px rgba(0,245,255,0.6); }
+.text-neon-lobster { text-shadow: 0 0 12px rgba(255,107,0,0.6); }
+
+/* GLASS CARDS */
+.glass-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.dark .glass-card {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.08);
+}
+.light .glass-card {
+  background: rgba(255,255,255,0.75);
+  border-color: rgba(0,0,0,0.07);
+}
+
+/* GRADIENT TEXT */
+.gradient-text {
+  background: linear-gradient(135deg, #FF6B00, #00F5FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+}
+@keyframes pulse-cyan {
+  0%,100% { filter: drop-shadow(0 0 6px var(--cyan-neon)); opacity:.85; }
+  50% { filter: drop-shadow(0 0 18px var(--cyan-neon)); opacity:1; }
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
+@keyframes slideIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(120%); opacity: 0; }
+}
+@keyframes scanline {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradientShift {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-cyan { animation: pulse-cyan 3s ease-in-out infinite; }
+.animate-fade-up { animation: fadeUp 0.6s ease both; }
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 2.5s infinite;
+}
+
+/* CURSOR */
+.claw-icon { transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+#theme-toggle:hover .claw-icon { transform: rotate(-20deg) scale(1.25); }
+
+/* TERMINAL */
+.terminal-cursor::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  color: #00F5FF;
+}
+
+/* BADGE */
+.badge-pulse {
+  animation: gradientShift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* SESSION CARDS 3D */
+.session-card { transition: transform .35s ease, box-shadow .35s ease; transform-style: preserve-3d; }
+.session-card:hover { box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,107,0,0.12); }
+
+/* PROGRESS BAR ANIMATED */
+#progress-bar { transition: width .6s cubic-bezier(.34,1.2,.64,1); }
+
+/* LIGHT MODE OVERRIDES */
+.light .dark-only { display: none !important; }
+.dark .light-only { display: none !important; }
+.light .code-block { background: #F0EDE8 !important; border-color: rgba(0,0,0,0.1) !important; }
+.light .code-block code { color: #1A1A1A !important; }
+.light .glass-card { box-shadow: 0 8px 32px rgba(255,107,0,0.08); }
+
+/* NUMBER HOVER */
+.session-num { transition: opacity .4s, color .4s; }
+.session-card:hover .session-num { opacity: 1 !important; color: var(--lobster) !important; }
+
+/* QUIZ */
+.quiz-opt { transition: all .25s ease; }
+.quiz-opt:hover { border-color: rgba(255,107,0,0.5); transform: translateX(4px); }
+.quiz-correct { background: rgba(34,197,94,0.15) !important; border-color: #22C55E !important; color: #86EFAC !important; }
+.quiz-wrong { background: rgba(239,68,68,0.15) !important; border-color: #EF4444 !important; color: #FCA5A5 !important; }
+
+/* CHECKLIST CARDS */
+.check-card { cursor: pointer; transition: all .25s ease; }
+.check-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,0,0.15); }
+.check-done { border-color: rgba(255,107,0,0.5) !important; background: rgba(255,107,0,0.07) !important; }
+
+/* MONITORING TABLE */
+.monitor-table { border-collapse: collapse; width: 100%; }
+.monitor-table th, .monitor-table td { padding: .6rem 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: .85rem; }
+.light .monitor-table th, .light .monitor-table td { border-color: rgba(0,0,0,0.07); }
+.monitor-table th { opacity: .5; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+</style>
+</head>
+
+<body id="body-root" class="bg-[#0A0A0A] text-[#F0EDE8] font-body min-h-screen">
+
+<!-- AI PARTICLES CANVAS -->
+<canvas id="ai-particles" class="fixed inset-0 pointer-events-none z-0" style="opacity:.35"></canvas>
+
+<!-- ───────────── HEADER ───────────── -->
+<header class="sticky top-0 z-50 backdrop-blur-xl border-b border-white/[0.06] px-6 py-3 flex justify-between items-center" id="main-header" style="background:rgba(10,10,10,0.8)">
+  <div class="flex items-center gap-3">
+    <span class="text-2xl animate-float inline-block">🦞</span>
+    <h1 class="font-display font-black text-lg tracking-tight">OpenClaw <span style="color:var(--lobster)">Academy</span></h1>
+  </div>
+  <nav class="hidden md:flex gap-7 text-sm font-medium" style="opacity:.7">
+    <a href="#curriculum" class="hover:opacity-100 transition" style="transition:color .2s" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Programme</a>
+    <a href="#self-paced" class="hover:opacity-100 transition" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Auto-formation</a>
+    <a href="#security" class="hover:opacity-100 transition" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Sécurité/RGPD</a>
+  </nav>
+  <div class="flex items-center gap-3">
+    <!-- THEME TOGGLE -->
+    <button id="theme-toggle" class="relative group p-2.5 rounded-xl border transition-all duration-300 overflow-hidden" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)" title="Changer de thème">
+      <div class="flex items-center gap-2">
+        <svg id="claw-svg" class="claw-icon w-5 h-5 transition-colors duration-500" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path id="claw-path" d="M16 3C12 3 5 7 5 16C5 24 11 29 16 29C21 29 27 24 27 16C27 7 20 3 16 3Z" fill="#FF6B00"/>
+          <circle cx="16" cy="16" r="4" fill="white" id="claw-circle"/>
+          <path d="M11 11L8 8M21 11L24 8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span id="theme-label" class="text-xs font-bold uppercase tracking-widest hidden md:inline" style="color:var(--lobster)">Dark</span>
+      </div>
+    </button>
+    <a href="#start" class="relative overflow-hidden shimmer-btn bg-[#FF6B00] text-white px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,107,0,0.6)] hover:scale-105">
+      Start Building
+    </a>
+  </div>
+</header>
+
+<!-- ───────────── HERO ───────────── -->
+<main class="relative z-10">
+<section class="relative py-24 text-center px-6 overflow-hidden" id="start">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,107,0,0.12), transparent)"></div>
+
+  <!-- BADGE -->
+  <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-8 text-xs font-bold tracking-widest uppercase animate-fade-up" style="border-color:rgba(255,107,0,0.35);background:rgba(255,107,0,0.1);color:#FF6B00;animation-delay:.1s">
+    <span class="w-2 h-2 rounded-full bg-[#FF6B00] animate-pulse inline-block"></span>
+    Version 2026 · 100% Self-Paced &amp; Gratuit
+  </div>
+
+  <h2 class="text-5xl md:text-7xl font-display font-black mb-6 leading-[1.1] animate-fade-up" style="animation-delay:.2s">
+    Laisse l'IA bosser pour toi<br/>
+    <span class="gradient-text">24h/24 et 7j/7.</span>
+  </h2>
+
+  <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-up" style="opacity:.6;animation-delay:.3s;line-height:1.7">
+    Workshop intensif avec <strong style="opacity:1;color:#FF6B00">Chinat Yu</strong> (Stanford LDT). Créez vos agents OpenClaw locaux, sécurisés et autonomes. Zéro cloud. Zéro fuite de données.
+  </p>
+
+  <!-- BADGES ROW -->
+  <div class="flex flex-wrap justify-center gap-3 mb-12 animate-fade-up" style="animation-delay:.4s">
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🛡️ RGPD 100% Compliant</span>
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--cyan-neon)">⚡ Latence Zéro</span>
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--lobster)">🤖 Auto-Formation 100% Possible</span>
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🦞 Open Source</span>
+  </div>
+
+  <!-- INSTRUCTOR CARD -->
+  <div class="inline-flex items-center gap-4 px-6 py-4 rounded-2xl glass-card animate-fade-up" style="animation-delay:.5s">
+    <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-black" style="background:linear-gradient(135deg,#FF6B00,#FF9A4A)">CY</div>
+    <div class="text-left">
+      <p class="font-bold text-sm">Chinat Yu</p>
+      <p class="text-xs" style="opacity:.5">Stanford LDT · MLH Top 50 · AI Engineer</p>
+    </div>
+    <div class="w-px h-8 mx-2" style="background:rgba(255,255,255,0.1)"></div>
+    <div class="text-xs" style="opacity:.6">4 sessions<br/>Self-paced</div>
+  </div>
+</section>
+
+<!-- ───────────── 15 MIN SECTION ───────────── -->
+<section class="py-20 px-6 border-t" style="border-color:rgba(255,255,255,0.05)">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
+    <div class="flex-1">
+      <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:var(--lobster)">Défi Rapide</p>
+      <h3 class="text-4xl md:text-5xl font-display font-black mb-5 leading-tight">
+        Ton premier agent en <span class="text-neon-cyan" style="color:var(--cyan-neon)">15:00</span> chrono
+      </h3>
+      <p class="mb-8 text-lg" style="opacity:.65;line-height:1.7">
+        Pas de blabla. On installe Ollama, on pull OpenClaw, et ton premier script tourne. Chrono enclenché dès que tu es prêt.
+      </p>
+      <button id="start-timer" class="flex items-center gap-4 px-8 py-4 rounded-xl font-bold text-sm border transition-all duration-300 hover:scale-105" style="background:rgba(0,245,255,0.08);border-color:var(--cyan-neon);color:var(--cyan-neon)" onclick="startTimer(900)">
+        <span>▶ Lancer le chrono</span>
+        <span id="timer-display" class="font-mono text-2xl font-black">15:00</span>
+      </button>
+      <p id="timer-status" class="mt-3 text-xs" style="opacity:.45"></p>
+    </div>
+    <div class="flex-1 w-full">
+      <div class="code-block relative rounded-2xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.12)">
+        <!-- Terminal bar -->
+        <div class="flex items-center gap-2 px-5 py-3 border-b" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          <span class="text-xs ml-3 font-mono" style="opacity:.4">terminal — bash</span>
+          <!-- Scan line effect -->
+          <div style="position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.3),transparent);animation:scanline 3s linear infinite;pointer-events:none"></div>
+        </div>
+        <pre class="p-6 font-mono text-sm overflow-x-auto leading-relaxed" style="color:#e0e0e0"><code id="code-install"><span style="color:#6C757D"># 1. Installer Ollama</span>
+<span style="color:#FF6B00">curl</span> <span style="color:#00F5FF">-fsSL</span> https://ollama.com/install.sh | bash
+
+<span style="color:#6C757D"># 2. Pull le modèle</span>
+<span style="color:#FF6B00">ollama</span> run llama3:8b-instruct-q8_0
+
+<span style="color:#6C757D"># 3. Lancer OpenClaw</span>
+<span style="color:#FF6B00">openclaw</span> init --template autonomous-researcher
+<span style="color:#FF6B00">openclaw</span> run --sandbox<span class="terminal-cursor"></span></code></pre>
+        <button onclick="copyCodeBlock('code-install')" class="absolute top-10 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── SELF-PACED DASHBOARD ───────────── -->
+<section id="self-paced" class="py-20 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="glass-card rounded-3xl p-8 md:p-10 shadow-2xl" style="box-shadow:0 32px 80px rgba(0,0,0,0.6)">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color:var(--lobster)">Dashboard</p>
+          <h3 class="text-3xl font-display font-black">Ton Apprentissage Self-Paced</h3>
+          <p class="mt-1 text-sm" style="opacity:.5">Progression sauvegardée en local · Zéro tracking externe</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span id="progress-text" class="font-display font-black text-4xl" style="color:var(--lobster)">0%</span>
+          <div class="w-64 h-2 rounded-full mt-2" style="background:rgba(255,255,255,0.1)">
+            <div id="progress-bar" class="h-full rounded-full" style="width:0%;background:linear-gradient(90deg,#FF6B00,#FF9A4A)"></div>
+          </div>
+          <p class="text-xs mt-1" style="opacity:.4">0 / 8 étapes</p>
+        </div>
+      </div>
+
+      <!-- CHECKLIST GRID -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3" id="checklist-container"></div>
+
+      <!-- CONFETTI SECTION (hidden until 100%) -->
+      <div id="complete-banner" class="hidden mt-8 text-center py-6 rounded-2xl" style="background:linear-gradient(135deg,rgba(255,107,0,0.15),rgba(0,245,255,0.1))">
+        <p class="text-2xl font-display font-black">🎉 Formation Complète !</p>
+        <p class="mt-1 text-sm" style="opacity:.6">Tu es maintenant un Automator Supreme 👑</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── CURRICULUM ───────────── -->
+<section id="curriculum" class="py-20 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:var(--lobster)">4 Sessions</p>
+      <h3 class="text-4xl md:text-5xl font-display font-black">Le Programme Complet</h3>
+      <p class="mt-3 max-w-xl mx-auto" style="opacity:.55;line-height:1.7">Du zéro au déploiement 24/7 en autonomie totale. Badge à débloquer à chaque session.</p>
+    </div>
+
+    <!-- SESSION 1 -->
+    <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="1" style="border-color:rgba(255,255,255,0.07)">
+      <div class="flex justify-between items-start mb-4">
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07;color:inherit">01</span>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(255,107,0,0.15);color:#FF6B00">🛡️ Guardian of Privacy</span>
+          <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
+        </div>
+      </div>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 1 — Architecture &amp; Local LLM</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Transformer ton ordinateur en forge à IA sans dépendre du Cloud. Confidentialité totale, latence zéro, coût nul.</p>
+
+      <!-- Video placeholder -->
+      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center relative overflow-hidden border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo bientôt disponible — Reviens le Jour J !')">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 neon-lobster" style="background:rgba(255,107,0,0.2);border:2px solid #FF6B00">
+              <span class="text-2xl ml-1">▶</span>
+            </div>
+            <span class="text-sm font-bold" style="color:var(--lobster)">Session 1 — Aperçu Vidéo</span>
+          </button>
+        </div>
+        <div class="absolute bottom-4 right-4 text-xs px-3 py-1 rounded-full" style="background:rgba(0,0,0,0.6);opacity:.7">~45 min</div>
+      </div>
+
+      <!-- Code blocks -->
+      <div class="space-y-4 mb-6">
+        <p class="text-sm font-bold" style="opacity:.7">📋 Commandes d'installation :</p>
+        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 1</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s1"><span style="color:#6C757D"># Installation Ollama — Moteur IA local</span>
+<span style="color:#FF6B00">curl</span> -fsSL https://ollama.com/install.sh | sh
+
+<span style="color:#6C757D"># Pull du modèle optimisé pour OpenClaw</span>
+<span style="color:#FF6B00">ollama</span> run llama3:8b-instruct-q8_0
+
+<span style="color:#6C757D"># Vérification</span>
+<span style="color:#FF6B00">ollama</span> list
+
+<span style="color:#6C757D"># Test API locale (port 11434)</span>
+<span style="color:#FF6B00">curl</span> http://localhost:11434/api/generate \
+  -d '{"model":"llama3","prompt":"Hello OpenClaw !"}'</code></pre>
+          <button onclick="copyCodeBlock('code-s1')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+        </div>
+      </div>
+
+      <!-- Sandbox challenge -->
+      <div class="p-5 rounded-xl mb-6" style="background:rgba(0,245,255,0.05);border:1px solid rgba(0,245,255,0.15)">
+        <p class="text-sm font-bold mb-1" style="color:var(--cyan-neon)">🧪 Défi Sandbox</p>
+        <p class="text-sm" style="opacity:.7">Utilise <code class="font-mono text-xs px-1.5 py-0.5 rounded" style="background:rgba(255,255,255,0.08)">ollama list</code> pour vérifier ton modèle, puis teste l'API locale sur le port 11434 avec curl.</p>
+      </div>
+
+      <!-- Mini-Quiz S1 -->
+      <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
+        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — Pourquoi utiliser Ollama en local ?</p>
+        <div class="space-y-2" id="quiz-s1">
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">A. Confidentialité totale &amp; conformité RGPD</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">B. Pour augmenter les coûts de votre infrastructure</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">C. Parce que les API cloud sont plus rapides</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">D. Latence zéro + zéro dépendance externe</button>
+        </div>
+      </div>
+
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="1" style="background:rgba(255,107,0,0.15);border:1px solid rgba(255,107,0,0.4);color:#FF6B00" onclick="markSessionDone(1)">
+        Marquer Session 1 comme Terminée ✅
+      </button>
+    </div>
+
+    <!-- SESSION 2 -->
+    <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="2" style="border-color:rgba(255,255,255,0.07)">
+      <div class="flex justify-between items-start mb-4">
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07">02</span>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(0,245,255,0.12);color:#00F5FF">🧠 Neural Architect</span>
+          <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
+        </div>
+      </div>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 2 — OpenClaw Core : Ton Premier Agent</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Passer d'un simple chatbot à un agent qui exécute des scripts. Maîtriser la boucle Perception → Réflexion → Action → Observation.</p>
+
+      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
+        <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo Session 2 — Bientôt disponible !')">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all group-hover:scale-110 neon-cyan" style="background:rgba(0,245,255,0.1);border:2px solid #00F5FF">
+            <span class="text-2xl ml-1" style="color:#00F5FF">▶</span>
+          </div>
+          <span class="text-sm font-bold" style="color:var(--cyan-neon)">Session 2 — Aperçu Vidéo</span>
+        </button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <p class="text-sm font-bold" style="opacity:.7">📋 Initialisation du projet :</p>
+        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 2</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s2"><span style="color:#6C757D"># Installer la CLI OpenClaw</span>
+<span style="color:#FF6B00">npm</span> install -g @openclaw/sdk
+
+<span style="color:#6C757D"># Créer ton agent "Lobster-01"</span>
+<span style="color:#FF6B00">openclaw</span> init --template autonomous-researcher
+
+<span style="color:#6C757D"># agent.config.json — Le Prompt "Master"</span></code></pre>
+          <button onclick="copyCodeBlock('code-s2')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+        </div>
+        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">json · agent.config.json</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s2b"><span style="color:#00F5FF">{</span>
+  <span style="color:#86EFAC">"role"</span>: <span style="color:#FCD34D">"Agent de recherche autonome"</span>,
+  <span style="color:#86EFAC">"goal"</span>: <span style="color:#FCD34D">"Extraire et synthétiser les news IA toutes les 6h"</span>,
+  <span style="color:#86EFAC">"tools"</span>: [<span style="color:#FCD34D">"web-search"</span>, <span style="color:#FCD34D">"file-writer"</span>],
+  <span style="color:#86EFAC">"constraints"</span>: <span style="color:#FCD34D">"Strictement local. Format Markdown uniquement."</span>
+<span style="color:#00F5FF">}</span></code></pre>
+          <button onclick="copyCodeBlock('code-s2b')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+        </div>
+      </div>
+
+      <!-- Mini-Quiz S2 -->
+      <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
+        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — La boucle OpenClaw</p>
+        <div class="space-y-2" id="quiz-s2">
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s2')">A. Perception → Réflexion → Action → Observation</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">B. Input → Output → Stop</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">C. Load → Run → Crash → Reboot</button>
+        </div>
+      </div>
+
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="2" style="background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.3);color:#00F5FF" onclick="markSessionDone(2)">
+        Marquer Session 2 comme Terminée ✅
+      </button>
+    </div>
+
+    <!-- SESSION 3 -->
+    <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="3" style="border-color:rgba(255,255,255,0.07)">
+      <div class="flex justify-between items-start mb-4">
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07">03</span>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(239,68,68,0.15);color:#FCA5A5">🔐 Security Specialist</span>
+          <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
+        </div>
+      </div>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 3 — Sécurité, RAG &amp; Sandbox</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Connecter l'IA à tes documents privés en toute sécurité. Le RAG local : l'agent lit tes PDF, mais rien ne sort de ton réseau.</p>
+
+      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
+        <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo Session 3 — Bientôt !')">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all group-hover:scale-110" style="background:rgba(239,68,68,0.1);border:2px solid #EF4444">
+            <span class="text-2xl ml-1" style="color:#FCA5A5">▶</span>
+          </div>
+          <span class="text-sm font-bold" style="color:#FCA5A5">Session 3 — Aperçu Vidéo</span>
+        </button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <p class="text-sm font-bold" style="opacity:.7">📋 Sandbox Docker &amp; RAG :</p>
+        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 3</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s3"><span style="color:#6C757D"># Lancer l'environnement de test isolé</span>
+<span style="color:#FF6B00">openclaw</span> sandbox up --isolated
+
+<span style="color:#6C757D"># Toujours utiliser --audit pour surveiller l'IA</span>
+<span style="color:#FF6B00">openclaw</span> run --audit</code></pre>
+          <button onclick="copyCodeBlock('code-s3')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+        </div>
+        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">javascript · RAG local</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s3b"><span style="color:#86EFAC">import</span> { LocalMemory } <span style="color:#86EFAC">from</span> <span style="color:#FCD34D">'@openclaw/memory'</span>;
+
+<span style="color:#6C757D">// Connecter l'agent à tes docs privés</span>
+<span style="color:#86EFAC">const</span> memory = <span style="color:#86EFAC">new</span> LocalMemory(<span style="color:#FCD34D">'./my-private-docs'</span>);
+<span style="color:#86EFAC">await</span> agent.attach(memory);
+<span style="color:#6C757D">// L'agent lit tes PDF, rien ne quitte ton réseau.</span></code></pre>
+          <button onclick="copyCodeBlock('code-s3b')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+        </div>
+      </div>
+
+      <div class="p-5 rounded-xl mb-6" style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2)">
+        <p class="text-sm font-bold mb-1" style="color:#FCA5A5">💡 Le Tip de Chinat Yu</p>
+        <p class="text-sm" style="opacity:.7">Toujours utiliser le flag <code class="font-mono text-xs px-1.5 py-0.5 rounded" style="background:rgba(255,255,255,0.1)">--audit</code> pour voir exactement quelles lignes de code l'IA tente d'exécuter dans sa sandbox. Transparent &amp; auditables.</p>
+      </div>
+
+      <!-- Mini-Quiz S3 -->
+      <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
+        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — RAG Local &amp; Sécurité</p>
+        <div class="space-y-2" id="quiz-s3">
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">A. Le RAG envoie tous tes documents au cloud OpenAI</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s3')">B. Le RAG local permet à l'IA d'interroger tes docs sans quitter ton réseau</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">C. RAG = Random Access Generator, aucun rapport avec la mémoire</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s3')">D. La sandbox Docker isole les exécutions pour plus de sécurité</button>
+        </div>
+      </div>
+
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="3" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);color:#FCA5A5" onclick="markSessionDone(3)">
+        Marquer Session 3 comme Terminée ✅
+      </button>
+    </div>
+
+    <!-- SESSION 4 -->
+    <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="4" style="border-color:rgba(255,255,255,0.07)">
+      <div class="flex justify-between items-start mb-4">
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07">04</span>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(234,179,8,0.15);color:#FCD34D">👑 Automator Supreme</span>
+          <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
+        </div>
+      </div>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 4 — Déploiement 24/7 &amp; Automatisation</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Lâcher ton agent dans la nature digitale. PM2 ou Systemd pour que l'agent survive aux redémarrages et travaille même quand tu dors.</p>
+
+      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
+        <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo Session 4 — Le Graal. Bientôt !')">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all group-hover:scale-110" style="background:rgba(234,179,8,0.12);border:2px solid #EAB308">
+            <span class="text-2xl ml-1" style="color:#FCD34D">▶</span>
+          </div>
+          <span class="text-sm font-bold" style="color:#FCD34D">Session 4 — Aperçu Vidéo</span>
+        </button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <p class="text-sm font-bold" style="opacity:.7">📋 Déploiement PM2 &amp; Daemon :</p>
+        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 4 · PM2</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s4"><span style="color:#6C757D"># Garder l'agent actif 24/7 avec PM2</span>
+<span style="color:#FF6B00">pm2</span> start <span style="color:#FCD34D">"openclaw run agent.config.json"</span> --name my-247-agent
+
+<span style="color:#6C757D"># Sauvegarder pour survie au reboot</span>
+<span style="color:#FF6B00">pm2</span> save
+<span style="color:#FF6B00">pm2</span> startup
+
+<span style="color:#6C757D"># Monitoring en temps réel</span>
+<span style="color:#FF6B00">pm2</span> monit</code></pre>
+          <button onclick="copyCodeBlock('code-s4')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+        </div>
+      </div>
+
+      <!-- Monitoring table -->
+      <div class="rounded-xl overflow-hidden border mb-6" style="border-color:rgba(255,255,255,0.08)">
+        <div class="px-5 py-3 text-xs font-bold uppercase tracking-widest border-b" style="background:rgba(255,255,255,0.04);opacity:.6;border-color:rgba(255,255,255,0.07)">📊 Tableau de Bord de Monitoring</div>
+        <table class="monitor-table">
+          <thead>
+            <tr>
+              <th>Métrique</th>
+              <th>Seuil Alerte</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-mono text-sm" style="color:#FF6B00">CPU Usage</td>
+              <td>&gt; 80%</td>
+              <td style="color:#86EFAC">Pause automatique</td>
+            </tr>
+            <tr>
+              <td class="font-mono text-sm" style="color:#FCD34D">Token Cost</td>
+              <td>0.00€</td>
+              <td style="color:#86EFAC">Toujours gratuit en local 🎉</td>
+            </tr>
+            <tr>
+              <td class="font-mono text-sm" style="color:#00F5FF">Succès Tâches</td>
+              <td>&lt; 95%</td>
+              <td style="color:#86EFAC">Re-prompting automatique</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-5 rounded-xl mb-6" style="background:rgba(234,179,8,0.07);border:1px solid rgba(234,179,8,0.2)">
+        <p class="text-sm font-bold mb-1" style="color:#FCD34D">🏆 Exercice Final</p>
+        <p class="text-sm" style="opacity:.7">Configure un "Hook" pour que ton agent t'envoie un résumé de son travail sur Signal/Telegram via un serveur local. Ton agent travaille, tu reçois les résultats.</p>
+      </div>
+
+      <!-- Mini-Quiz S4 -->
+      <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
+        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — Déploiement &amp; PM2</p>
+        <div class="space-y-2" id="quiz-s4">
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s4')">A. PM2 maintient ton agent actif après un redémarrage système</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">B. Il faut un abonnement cloud pour faire tourner un agent 24/7</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">C. PM2 est uniquement pour les sites web, pas pour les agents IA</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s4')">D. En local, le coût en tokens est de 0€ — toujours</button>
+        </div>
+      </div>
+
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="4" style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.35);color:#FCD34D" onclick="markSessionDone(4)">
+        Marquer Session 4 comme Terminée — Obtenir le Badge 👑
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── SÉCURITÉ / RGPD ───────────── -->
+<section id="security" class="py-20 px-6 border-t" style="border-color:rgba(255,255,255,0.05)">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:#86EFAC">Conformité</p>
+      <h3 class="text-4xl md:text-5xl font-display font-black">Sécurité &amp; RGPD</h3>
+      <p class="mt-3 max-w-xl mx-auto" style="opacity:.55;line-height:1.7">Notre philosophie : Zéro cloud étranger. Zéro cookie tiers. Les données ne quittent jamais le sol européen.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- France -->
+      <div class="glass-card rounded-2xl p-7">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🇫🇷</span>
+          <h4 class="font-display font-black text-xl">Checklist France</h4>
+        </div>
+        <ul class="space-y-3" id="rgpd-fr">
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Hébergement sur serveur physique en France (ou UE)</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Aucune donnée personnelle transmise à des tiers</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>localStorage uniquement — zéro cookies tiers</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Conformité CNIL vérifiée</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Registre des traitements à jour (Art. 30 RGPD)</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Europe -->
+      <div class="glass-card rounded-2xl p-7">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🇪🇺</span>
+          <h4 class="font-display font-black text-xl">Checklist Europe</h4>
+        </div>
+        <ul class="space-y-3" id="rgpd-eu">
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Pas de transfert hors UE (Schrems II compliant)</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Modèle LLM open-source (Llama 3) — Pas de dépendance propriétaire</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Sandbox Docker — isolation complète des exécutions</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Droit à l'effacement : suppression locale instantanée</span>
+          </li>
+          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>AI Act (UE 2024) — Audit trail complet via --audit flag</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer class="py-12 px-6 border-t text-center" style="border-color:rgba(255,255,255,0.05)">
+  <div class="flex justify-center items-center gap-3 mb-4">
+    <span class="text-2xl animate-float inline-block">🦞</span>
+    <span class="font-display font-black text-lg">OpenClaw <span style="color:var(--lobster)">Academy</span></span>
+  </div>
+  <p class="text-sm" style="opacity:.35">© 2026 OpenClaw Academy · 100% Self-Paced · 100% Local · 100% RGPD</p>
+  <p class="text-xs mt-2" style="opacity:.2">Fait avec 🦞 par Chinat Yu · Stanford LDT</p>
+</footer>
+
+</main>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container" class="fixed bottom-8 right-8 z-[200] flex flex-col items-end gap-2 pointer-events-none"></div>
+
+<script>
+// ─────────────── STATE ───────────────
+const state = {
+  progress: JSON.parse(localStorage.getItem('openclaw_progress') || '[]'),
+  theme: localStorage.getItem('openclaw_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'),
+  timerActive: false,
+  timerInterval: null,
+  sessions: [
+    { id: 1, title: 'Architecture & Local' },
+    { id: 2, title: 'Tool Calling & Agents' },
+    { id: 3, title: 'RAG & Memory' },
+    { id: 4, title: 'Deployment 24/7' }
+  ]
+};
+const TOTAL_STEPS = 8; // 4 sessions + 4 checklist items
+
+// ─────────────── THEME TOGGLE ───────────────
+function applyTheme(theme) {
+  const html = document.getElementById('html-root');
+  const body = document.getElementById('body-root');
+  const label = document.getElementById('theme-label');
+  const clawPath = document.getElementById('claw-path');
+  const header = document.getElementById('main-header');
+
+  if (theme === 'light') {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    body.style.backgroundColor = '#F5F2ED';
+    body.style.color = '#1A1A1A';
+    header.style.background = 'rgba(245,242,237,0.85)';
+    header.style.borderColor = 'rgba(0,0,0,0.08)';
+    if (label) label.textContent = 'Light';
+    if (clawPath) clawPath.setAttribute('fill', '#E55A00');
+    document.querySelectorAll('.glass-card').forEach(el => {
+      el.style.background = 'rgba(255,255,255,0.8)';
+      el.style.borderColor = 'rgba(0,0,0,0.07)';
+    });
+    document.querySelectorAll('.code-block').forEach(el => {
+      el.style.background = '#F0EDE8';
+      el.style.borderColor = 'rgba(0,0,0,0.1)';
+    });
+    document.querySelectorAll('.code-block pre').forEach(el => el.style.color = '#2D2D2D');
+  } else {
+    html.classList.remove('light');
+    html.classList.add('dark');
+    body.style.backgroundColor = '#0A0A0A';
+    body.style.color = '#F0EDE8';
+    header.style.background = 'rgba(10,10,10,0.8)';
+    header.style.borderColor = 'rgba(255,255,255,0.06)';
+    if (label) label.textContent = 'Dark';
+    if (clawPath) clawPath.setAttribute('fill', '#FF6B00');
+    document.querySelectorAll('.glass-card').forEach(el => {
+      el.style.background = 'rgba(255,255,255,0.03)';
+      el.style.borderColor = 'rgba(255,255,255,0.08)';
+    });
+    document.querySelectorAll('.code-block').forEach(el => {
+      el.style.background = '#080808';
+      el.style.borderColor = 'rgba(255,255,255,0.1)';
+    });
+    document.querySelectorAll('.code-block pre').forEach(el => el.style.color = '#e0e0e0');
+  }
+}
+
+function initTheme() {
+  applyTheme(state.theme);
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    state.theme = state.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('openclaw_theme', state.theme);
+    applyTheme(state.theme);
+  });
+}
+
+// ─────────────── PROGRESS ───────────────
+function updateProgress() {
+  const done = state.progress.length;
+  const pct = Math.min(100, Math.round((done / TOTAL_STEPS) * 100));
+  const bar = document.getElementById('progress-bar');
+  const txt = document.getElementById('progress-text');
+  const countEl = document.querySelector('#self-paced .text-xs.mt-1');
+  if (bar) bar.style.width = pct + '%';
+  if (txt) txt.textContent = pct + '%';
+  if (countEl) countEl.textContent = done + ' / ' + TOTAL_STEPS + ' étapes';
+  if (pct >= 100) {
+    triggerConfetti();
+    const banner = document.getElementById('complete-banner');
+    if (banner) banner.classList.remove('hidden');
+  }
+}
+
+// ─────────────── CHECKLIST ───────────────
+function initChecklist() {
+  const container = document.getElementById('checklist-container');
+  const items = [
+    { id: 'check-0', label: 'Installer Ollama', emoji: '⚙️' },
+    { id: 'check-1', label: 'Cloner le Repo', emoji: '📂' },
+    { id: 'check-2', label: 'Session 1 Terminée', emoji: '🎓' },
+    { id: 'check-3', label: 'Quiz 1 Réussi', emoji: '🧠' },
+    { id: 'check-4', label: 'Sandbox Docker', emoji: '🐳' },
+    { id: 'check-5', label: 'Agent déployé', emoji: '🤖' },
+    { id: 'check-6', label: 'PM2 Configuré', emoji: '⚡' },
+    { id: 'check-7', label: 'Toutes Sessions ✅', emoji: '👑' }
+  ];
+
+  container.innerHTML = '';
+  items.forEach((item, i) => {
+    const isDone = state.progress.includes(item.id);
+    const card = document.createElement('div');
+    card.className = 'check-card p-4 rounded-xl border' + (isDone ? ' check-done' : '');
+    card.style.cssText = isDone
+      ? 'border-color:rgba(255,107,0,0.5);background:rgba(255,107,0,0.07)'
+      : 'border-color:rgba(255,255,255,0.08);background:rgba(255,255,255,0.03)';
+    card.innerHTML = `<div class="flex items-center gap-3">
+      <div class="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0 transition-all" style="background:${isDone?'rgba(255,107,0,0.3)':'rgba(255,255,255,0.07)'}">
+        ${isDone ? '🧡' : item.emoji}
+      </div>
+      <span class="text-xs font-bold leading-tight">${item.label}</span>
+    </div>`;
+    card.onclick = () => {
+      if (!isDone) {
+        state.progress.push(item.id);
+        localStorage.setItem('openclaw_progress', JSON.stringify(state.progress));
+        showToast('Étape validée ! 🦞 +1');
+        initChecklist();
+        updateProgress();
+      } else {
+        showToast('Déjà validée ! Continue comme ça 💪');
+      }
+    };
+    container.appendChild(card);
+  });
+}
+
+// ─────────────── SESSION DONE ───────────────
+function markSessionDone(num) {
+  const key = 'session-' + num;
+  if (!state.progress.includes(key)) {
+    state.progress.push(key);
+    localStorage.setItem('openclaw_progress', JSON.stringify(state.progress));
+    updateProgress();
+  }
+  const card = document.querySelector(`[data-session="${num}"]`);
+  if (card) {
+    const badge = card.querySelector('.badge-completed');
+    if (badge) badge.classList.remove('hidden');
+    card.style.borderColor = 'rgba(34,197,94,0.4)';
+  }
+  const messages = [
+    '',
+    '🛡️ Badge Guardian of Privacy débloqué !',
+    '🧠 Badge Neural Architect débloqué !',
+    '🔐 Badge Security Specialist débloqué !',
+    '👑 Badge Automator Supreme débloqué ! Tu es une légende.'
+  ];
+  showToast(messages[num] || 'Session terminée !');
+}
+
+// ─────────────── TIMER ───────────────
+let timerInterval = null;
+function startTimer(duration) {
+  if (timerInterval) { clearInterval(timerInterval); }
+  let time = duration;
+  const display = document.getElementById('timer-display');
+  const status = document.getElementById('timer-status');
+  const btn = document.getElementById('start-timer');
+
+  btn.style.background = 'rgba(0,245,255,0.15)';
+  if (status) status.textContent = '⏱ Chrono en cours... Bonne chance !';
+
+  timerInterval = setInterval(() => {
+    let m = Math.floor(time / 60);
+    let s = time % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    if (time <= 60) display.style.color = '#EF4444';
+    else if (time <= 300) display.style.color = '#FCD34D';
+    else display.style.color = '#00F5FF';
+
+    if (--time < 0) {
+      clearInterval(timerInterval);
+      display.textContent = '00:00';
+      if (status) status.textContent = '';
+      showToast("⏱ Chrono fini ! T'es un boss. 🚀");
+      triggerConfetti(true);
+      btn.style.background = 'rgba(0,245,255,0.08)';
+    }
+  }, 1000);
+}
+
+// ─────────────── QUIZ ───────────────
+function handleQuiz(btn, quizId) {
+  const container = document.getElementById(quizId);
+  if (container.querySelector('.quiz-correct, .quiz-wrong')) return; // Already answered
+  if (btn.dataset.correct === 'true') {
+    btn.classList.add('quiz-correct');
+    showToast('Bien joué ! 🎯 Bonne réponse');
+    if (!state.progress.includes('quiz-' + quizId)) {
+      state.progress.push('quiz-' + quizId);
+      localStorage.setItem('openclaw_progress', JSON.stringify(state.progress));
+      updateProgress();
+    }
+  } else {
+    btn.classList.add('quiz-wrong');
+    // Reveal correct answer
+    container.querySelectorAll('[data-correct="true"]').forEach(el => el.classList.add('quiz-correct'));
+    showToast('Oups ! La bonne réponse est en vert 👆');
+  }
+}
+
+// ─────────────── TOAST ───────────────
+function showToast(msg) {
+  const id = 'toast-' + Date.now();
+  const div = document.createElement('div');
+  div.id = id;
+  div.className = 'pointer-events-auto';
+  div.style.cssText = `
+    display:flex; align-items:center; gap:10px;
+    background:rgba(10,10,10,0.95); color:#F0EDE8;
+    border-left:3px solid #FF6B00;
+    padding:12px 16px; border-radius:10px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    font-size:.85rem; font-weight:600;
+    animation: slideIn .3s ease both;
+    max-width:320px;
+  `;
+  div.innerHTML = '<span style="font-size:1.2rem">🦞</span><span>' + msg + '</span>';
+  document.getElementById('toast-container').appendChild(div);
+  setTimeout(() => {
+    div.style.animation = 'slideOut .3s ease forwards';
+    setTimeout(() => div.remove(), 300);
+  }, 3200);
+}
+
+// ─────────────── COPY CODE ───────────────
+function copyCodeBlock(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const text = el.innerText.replace(/\n$/, '');
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Code copié dans le presse-papier ! 📋');
+  }).catch(() => {
+    showToast('Sélectionne et copie manuellement 📋');
+  });
+}
+
+// ─────────────── RGPD CHECKBOXES ───────────────
+function toggleRGPD(item) {
+  const box = item.querySelector('span');
+  const isChecked = box.textContent === '✓';
+  if (isChecked) {
+    box.textContent = '';
+    box.style.borderColor = 'rgba(134,239,172,0.5)';
+    box.style.background = 'transparent';
+    item.style.background = 'rgba(255,255,255,0.04)';
+  } else {
+    box.textContent = '✓';
+    box.style.color = '#86EFAC';
+    box.style.borderColor = '#86EFAC';
+    box.style.background = 'rgba(34,197,94,0.2)';
+    item.style.background = 'rgba(34,197,94,0.05)';
+    showToast('✅ Élément RGPD validé !');
+  }
+}
+
+// ─────────────── CONFETTI ───────────────
+function triggerConfetti(mini = false) {
+  if (typeof confetti === 'undefined') return;
+  if (mini) {
+    confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 }, colors: ['#FF6B00', '#00F5FF', '#FCD34D'] });
+    return;
+  }
+  const duration = 3000;
+  const end = Date.now() + duration;
+  const colors = ['#FF6B00', '#00F5FF', '#FCD34D', '#86EFAC'];
+  (function frame() {
+    confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors });
+    confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
+
+// ─────────────── 3D HOVER ───────────────
+function init3DHover() {
+  document.querySelectorAll('.session-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      const cx = r.width / 2, cy = r.height / 2;
+      const rx = (y - cy) / 18, ry = (cx - x) / 18;
+      card.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.01,1.01,1.01)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    });
+  });
+}
+
+// ─────────────── AI PARTICLES ───────────────
+function initParticles() {
+  const canvas = document.getElementById('ai-particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const NODE_COUNT = Math.min(80, Math.floor(window.innerWidth / 20));
+  for (let i = 0; i < NODE_COUNT; i++) {
+    nodes.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4,
+      r: Math.random() * 2 + 1
+    });
+  }
+
+  let mx = W / 2, my = H / 2;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const isDark = document.getElementById('html-root').classList.contains('dark');
+    const nodeColor = isDark ? 'rgba(255,107,0,0.7)' : 'rgba(255,107,0,0.5)';
+    const lineColor = isDark ? 'rgba(0,245,255,' : 'rgba(0,180,200,';
+
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+
+      // Draw node
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = nodeColor;
+      ctx.fill();
+    });
+
+    // Draw connections
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          const alpha = (1 - dist / 120) * 0.4;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = lineColor + alpha + ')';
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+      // Connect to mouse
+      const dx = nodes[i].x - mx, dy = nodes[i].y - my;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        const alpha = (1 - dist / 150) * 0.6;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(mx, my);
+        ctx.strokeStyle = 'rgba(255,107,0,' + alpha + ')';
+        ctx.lineWidth = .8;
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ─────────────── INIT ───────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initChecklist();
+  updateProgress();
+  init3DHover();
+  initParticles();
+
+  // Restore session badges
+  state.sessions.forEach(s => {
+    if (state.progress.includes('session-' + s.id)) {
+      const card = document.querySelector(`[data-session="${s.id}"]`);
+      if (card) {
+        const badge = card.querySelector('.badge-completed');
+        if (badge) badge.classList.remove('hidden');
+        card.style.borderColor = 'rgba(34,197,94,0.35)';
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
