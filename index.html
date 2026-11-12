@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cours OpenClaw 2026 — Build Your First AI Agent</title>
+<title>Formation OpenClaw 2026 — AI Forge Institute</title>
+<meta name="description" content="Cours interactif AI Forge Institute : construis ton premier agent IA local avec Ollama et OpenClaw. Vidéos, podcasts, quiz et flashcards."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/elearning.css"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script>
@@ -127,8 +129,8 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 <header id="main-header" class="sticky top-0 z-50 glass border-b px-5 py-3 flex items-center justify-between gap-4" style="border-color:rgba(255,255,255,0.07);background:rgba(10,10,10,0.88);">
   <div class="flex items-center gap-3 shrink-0">
     <span class="text-xl animate-float inline-block">🦞</span>
-    <span class="font-display font-black text-base tracking-tight">OpenClaw <span style="color:#FF6B00">Academy</span></span>
-    <span class="hidden md:inline text-xs px-2.5 py-0.5 rounded-full font-bold" style="background:rgba(255,107,0,0.15);color:#FF6B00">Cours 2026</span>
+    <span class="font-display font-black text-base tracking-tight">AI Forge <span style="color:#FF6B00">Institute</span></span>
+    <span class="hidden md:inline text-xs px-2.5 py-0.5 rounded-full font-bold" style="background:rgba(255,107,0,0.15);color:#FF6B00">Formation OpenClaw 2026</span>
   </div>
 
   <!-- GLOBAL PROGRESS -->
@@ -142,7 +144,7 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 
   <div class="flex items-center gap-2 shrink-0">
     <button onclick="window.print()" class="no-print hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)">🖨 Imprimer</button>
-    <a href="openclaw-masterclass-2026.html" class="no-print hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)">← Landing</a>
+    <a href="openclaw-masterclass-2026.html" class="no-print hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)">← Accueil</a>
     <!-- THEME TOGGLE -->
     <button id="theme-toggle" class="relative group p-2 rounded-xl border transition-all duration-300" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)">
       <div class="flex items-center gap-1.5">
@@ -161,9 +163,9 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 <div id="tab-nav" class="sticky top-[57px] z-40 border-b px-4 glass no-print" style="border-color:rgba(255,255,255,0.07);background:rgba(10,10,10,0.92);">
   <div id="tab-nav-scroll" class="flex gap-1 overflow-x-auto py-2">
     <button class="tab-btn active" data-tab="prereqs">⚙️ Prérequis</button>
-    <button class="tab-btn" data-tab="s1">1 · Foundations</button>
+    <button class="tab-btn" data-tab="s1">1 · Fondations</button>
     <button class="tab-btn" data-tab="s2">2 · Premier Agent</button>
-    <button class="tab-btn" data-tab="s3">3 · Messaging</button>
+    <button class="tab-btn" data-tab="s3">3 · RAG &amp; Sandbox</button>
     <button class="tab-btn" data-tab="s4">4 · Multi-Agents</button>
     <button class="tab-btn" data-tab="security">🔐 Sécurité &amp; RGPD</button>
     <button class="tab-btn" data-tab="resources">📚 Ressources</button>
@@ -178,6 +180,8 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
   <div class="section-label">Étape 0</div>
   <h2 class="font-display font-black text-4xl mb-2">Prérequis &amp; Installation</h2>
   <p class="mb-8" style="opacity:.6;line-height:1.8">Avant de lancer ton premier agent, assure-toi que ton environnement est propre. Cette section couvre tout : de l'OS aux permissions en passant par Docker et Ollama.</p>
+  <div data-elearning="prereqs"></div>
+
 
   <!-- PRÉREQUIS SYSTÈME -->
   <div class="glass border rounded-2xl p-6 mb-6">
@@ -266,7 +270,7 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
   <!-- PULL MODEL -->
   <div class="glass border rounded-2xl p-6 mb-6">
     <h3 class="font-display font-bold text-xl mb-1">Étape 2 — Pull du modèle LLM</h3>
-    <p class="text-sm mb-5" style="opacity:.55;line-height:1.7">OpenClaw est optimisé pour Llama 3 8B. Le modèle est téléchargé localement (~5 Go). Choisir la version <code class="font-mono text-xs px-1 py-0.5 rounded" style="background:rgba(255,255,255,0.08)">q8_0</code> pour la meilleure qualité.</p>
+    <p class="text-sm mb-5" style="opacity:.55;line-height:1.7">OpenClaw est optimisé pour Llama 3 8B. Le modèle est téléchargé localement (~8,5 Go en q8_0, ~4,7 Go en q4_0). Choisir la version <code class="font-mono text-xs px-1 py-0.5 rounded" style="background:rgba(255,255,255,0.08)">q8_0</code> pour la meilleure qualité.</p>
     <div class="code-block mb-4">
       <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash</div>
       <pre class="p-4 font-mono text-sm leading-loose overflow-x-auto"><code id="code-pull"><span style="color:#6C757D"># Modèle recommandé (8B params, qualité maximale)</span>
@@ -281,7 +285,7 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 <span style="color:#6C757D"># Test rapide API locale</span>
 <span style="color:#FF6B00">curl</span> http://localhost:11434/api/generate \
   -H "Content-Type: application/json" \
-  -d '{"model":"llama3","prompt":"Bonjour, es-tu opérationnel ?","stream":false}'</code></pre>
+  -d '{"model":"llama3:8b-instruct-q8_0","prompt":"Bonjour, es-tu opérationnel ?","stream":false}'</code></pre>
       <div class="px-4 pb-3"><button onclick="copyCodeBlock('code-pull')" class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button></div>
     </div>
     <div class="p-4 rounded-xl text-sm" style="background:rgba(0,245,255,0.06);border:1px solid rgba(0,245,255,0.15)">
@@ -339,15 +343,17 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
   </div>
 
   <div class="flex justify-end">
-    <button onclick="switchTab('s1')" class="shimmer-btn px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-105" style="background:#FF6B00;color:white">Session 1 → Foundations ▶</button>
+    <button onclick="switchTab('s1')" class="shimmer-btn px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-105" style="background:#FF6B00;color:white">Session 1 → Fondations ▶</button>
   </div>
 </div>
 
 <!-- ══════ TAB 1 : SESSION 1 – FOUNDATIONS ══════ -->
 <div id="tab-s1" class="tab-panel">
   <div class="section-label">Session 1</div>
-  <h2 class="font-display font-black text-4xl mb-2">Foundations &amp; Architecture</h2>
+  <h2 class="font-display font-black text-4xl mb-2">Fondations &amp; Architecture locale</h2>
   <p class="mb-8" style="opacity:.6;line-height:1.8">Comprendre comment Ollama, le SDK OpenClaw et ton système s'articulent. Pourquoi le local surpasse le cloud sur tous les critères qui comptent.</p>
+  <div data-elearning="s1"></div>
+
 
   <!-- ARCHITECTURE -->
   <div class="glass border rounded-2xl p-6 mb-6">
@@ -417,7 +423,7 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 <span style="color:#FF6B00">curl</span> http://localhost:11434/api/chat \
   -H <span style="color:#FCD34D">"Content-Type: application/json"</span> \
   -d <span style="color:#FCD34D">'{
-    "model": "llama3",
+    "model": "llama3:8b-instruct-q8_0",
     "messages": [
       {"role":"system","content":"Tu es un assistant expert en IA locale."},
       {"role":"user","content":"Explique le RAG en 2 phrases."}
@@ -428,7 +434,7 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 <span style="color:#6C757D"># Avec streaming temps réel</span>
 <span style="color:#FF6B00">curl</span> http://localhost:11434/api/chat \
   -H <span style="color:#FCD34D">"Content-Type: application/json"</span> \
-  -d <span style="color:#FCD34D">'{"model":"llama3","messages":[{"role":"user","content":"Hello"}],"stream":true}'</span>
+  -d <span style="color:#FCD34D">'{"model":"llama3:8b-instruct-q8_0","messages":[{"role":"user","content":"Hello"}],"stream":true}'</span>
 
 <span style="color:#6C757D"># Liste des modèles disponibles</span>
 <span style="color:#FF6B00">curl</span> http://localhost:11434/api/tags</code></pre>
@@ -476,8 +482,10 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
 <!-- ══════ TAB 2 : SESSION 2 – PREMIER AGENT ══════ -->
 <div id="tab-s2" class="tab-panel">
   <div class="section-label">Session 2</div>
-  <h2 class="font-display font-black text-4xl mb-2">Créer ton Premier Agent</h2>
+  <h2 class="font-display font-black text-4xl mb-2">Créer ton premier agent</h2>
   <p class="mb-8" style="opacity:.6;line-height:1.8">De la théorie à l'exécution. Tu vas initialiser un agent <code class="font-mono text-sm">Lobster-01</code>, lui donner des outils, et le regarder exécuter sa première tâche autonome.</p>
+  <div data-elearning="s2"></div>
+
 
   <!-- INIT PROJET -->
   <div class="glass border rounded-2xl p-6 mb-6">
@@ -589,14 +597,16 @@ body{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;transiti
     </div>
     <button onclick="completeSession('s2','badge-s2')" class="shimmer-btn px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-105" style="background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.35);color:#00F5FF">Valider Session 2 ✅</button>
   </div>
-  <div class="flex justify-end"><button onclick="switchTab('s3')" class="shimmer-btn px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-105" style="background:#FF6B00;color:white">Session 3 → Messaging ▶</button></div>
+  <div class="flex justify-end"><button onclick="switchTab('s3')" class="shimmer-btn px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-105" style="background:#FF6B00;color:white">Session 3 → RAG &amp; Sandbox ▶</button></div>
 </div>
 
 <!-- ══════ TAB 3 : SESSION 3 – CONNEXIONS MESSAGING ══════ -->
 <div id="tab-s3" class="tab-panel">
   <div class="section-label">Session 3</div>
-  <h2 class="font-display font-black text-4xl mb-2">Connexions Messaging &amp; RAG Local</h2>
+  <h2 class="font-display font-black text-4xl mb-2">RAG local, Sandbox &amp; Notifications</h2>
   <p class="mb-8" style="opacity:.6;line-height:1.8">Connecter l'agent à tes documents privés (RAG), configurer les notifications via Telegram/Signal en serveur local, et maîtriser la sandbox Docker.</p>
+  <div data-elearning="s3"></div>
+
 
   <!-- RAG LOCAL -->
   <div class="glass border rounded-2xl p-6 mb-6">
@@ -656,7 +666,7 @@ console.log(result.answer);  <span style="color:#6C757D">// Réponse basée sur 
     <div class="code-block mb-4">
       <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">javascript · notifier.js</div>
       <pre class="p-4 font-mono text-sm leading-loose overflow-x-auto"><code id="code-tg"><span style="color:#6C757D">// Hook de notification — s'exécute après chaque tâche</span>
-<span style="color:#86EFAC">import</span> { createHook } <span style="color:#86EFAC">from</span> <span style="color:#FCD34D">'@openclaw/hooks'</span>;
+<span style="color:#86EFAC">import</span> { createHook } <span style="color:#86EFAC">from</span> <span style="color:#FCD34D">'@openclaw/sdk'</span>;
 
 <span style="color:#86EFAC">const</span> notify = createHook(<span style="color:#FCD34D">'on-task-complete'</span>, <span style="color:#86EFAC">async</span> (result) => {
   <span style="color:#6C757D">// Appel ton serveur Telegram local (bot self-hosted)</span>
@@ -735,8 +745,10 @@ agent.use(notify);</code></pre>
 <!-- ══════ TAB 4 : SESSION 4 – SKILLS & MULTI-AGENTS ══════ -->
 <div id="tab-s4" class="tab-panel">
   <div class="section-label">Session 4</div>
-  <h2 class="font-display font-black text-4xl mb-2">Skills, Multi-Agents &amp; Déploiement 24/7</h2>
+  <h2 class="font-display font-black text-4xl mb-2">Outils, Multi-Agents &amp; Déploiement 24/7</h2>
   <p class="mb-8" style="opacity:.6;line-height:1.8">La session finale. Créer des outils custom, faire collaborer plusieurs agents, déployer en production avec PM2, et monitorer l'ensemble.</p>
+  <div data-elearning="s4"></div>
+
 
   <!-- TOOLS CUSTOM -->
   <div class="glass border rounded-2xl p-6 mb-6">
@@ -801,7 +813,7 @@ orchestrator.pipeline([collector, analyzer, writer]);
 <span style="color:#FF6B00">npm</span> install -g pm2
 
 <span style="color:#6C757D"># Lancer l'agent en daemon</span>
-<span style="color:#FF6B00">pm2</span> start <span style="color:#FCD34D">"openclaw run agent.config.json"</span> \
+<span style="color:#FF6B00">pm2</span> start <span style="color:#FCD34D">"openclaw run agent.config.json --audit"</span> \
   --name my-247-agent \
   --restart-delay 3000 \
   --max-restarts 10
@@ -861,6 +873,8 @@ orchestrator.pipeline([collector, analyzer, writer]);
   <div class="section-label">Conformité</div>
   <h2 class="font-display font-black text-4xl mb-2">Sécurité &amp; RGPD France / Europe</h2>
   <p class="mb-8" style="opacity:.6;line-height:1.8">La philosophie OpenClaw : <strong>Privacy by Design</strong>. Chaque décision technique est pensée pour maximiser la souveraineté des données et la conformité réglementaire.</p>
+  <div data-elearning="security"></div>
+
 
   <!-- PRINCIPES -->
   <div class="glass border rounded-2xl p-6 mb-6">
@@ -894,11 +908,13 @@ orchestrator.pipeline([collector, analyzer, writer]);
       <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · sécurisation</div>
       <pre class="p-4 font-mono text-sm leading-loose overflow-x-auto"><code id="code-sec"><span style="color:#6C757D"># Créer un utilisateur dédié non-root pour l'agent</span>
 <span style="color:#FF6B00">sudo</span> useradd -m -s /bin/bash openclaw-agent
-<span style="color:#FF6B00">sudo</span> -u openclaw-agent <span style="color:#FF6B00">openclaw</span> run agent.config.json
+<span style="color:#FF6B00">sudo</span> -u openclaw-agent <span style="color:#FF6B00">openclaw</span> run agent.config.json --audit
 
 <span style="color:#6C757D"># S'assurer qu'Ollama n'écoute que localhost</span>
-<span style="color:#6C757D"># Dans /etc/ollama/config (ou variable d'env)</span>
-<span style="color:#86EFAC">OLLAMA_HOST</span>=127.0.0.1:11434
+<span style="color:#6C757D"># Linux (service systemd) : sudo systemctl edit ollama, puis ajouter :</span>
+<span style="color:#6C757D">#   [Service]</span>
+<span style="color:#6C757D">#   Environment="OLLAMA_HOST=127.0.0.1:11434"</span>
+<span style="color:#FF6B00">sudo</span> systemctl restart ollama
 
 <span style="color:#6C757D"># Vérifier avec netstat</span>
 <span style="color:#FF6B00">ss</span> -tlnp | grep 11434
@@ -927,9 +943,9 @@ orchestrator.pipeline([collector, analyzer, writer]);
         <div class="check-item flex items-start gap-3" data-key="rgpd-fr-0" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Hébergement serveur en France ou UE</span></div>
         <div class="check-item flex items-start gap-3" data-key="rgpd-fr-1" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Aucune donnée personnelle transmise à des tiers</span></div>
         <div class="check-item flex items-start gap-3" data-key="rgpd-fr-2" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">localStorage uniquement — zéro cookies tiers</span></div>
-        <div class="check-item flex items-start gap-3" data-key="rgpd-fr-3" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Conformité CNIL vérifiée</span></div>
+        <div class="check-item flex items-start gap-3" data-key="rgpd-fr-3" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Recommandations CNIL sur l'IA appliquées</span></div>
         <div class="check-item flex items-start gap-3" data-key="rgpd-fr-4" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Registre des traitements à jour (Art. 30 RGPD)</span></div>
-        <div class="check-item flex items-start gap-3" data-key="rgpd-fr-5" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">DPO désigné si &gt;250 salariés ou traitement sensible</span></div>
+        <div class="check-item flex items-start gap-3" data-key="rgpd-fr-5" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">DPO désigné si requis (secteur public, suivi à grande échelle, données sensibles)</span></div>
       </div>
     </div>
     <div class="glass border rounded-2xl p-6">
@@ -939,7 +955,7 @@ orchestrator.pipeline([collector, analyzer, writer]);
       </div>
       <div class="space-y-2" id="checklist-rgpd-eu">
         <div class="check-item flex items-start gap-3" data-key="rgpd-eu-0" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Pas de transfert hors UE (Schrems II compliant)</span></div>
-        <div class="check-item flex items-start gap-3" data-key="rgpd-eu-1" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">LLM open-source (Llama 3) — indépendance BigTech</span></div>
+        <div class="check-item flex items-start gap-3" data-key="rgpd-eu-1" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">LLM open-weight (Llama 3) — pas de dépendance à une API propriétaire</span></div>
         <div class="check-item flex items-start gap-3" data-key="rgpd-eu-2" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Sandbox Docker — isolation complète des exécutions</span></div>
         <div class="check-item flex items-start gap-3" data-key="rgpd-eu-3" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">Droit à l'effacement : suppression locale instantanée</span></div>
         <div class="check-item flex items-start gap-3" data-key="rgpd-eu-4" onclick="toggleCheck(this)"><div class="check-box mt-0.5"></div><span class="text-sm">AI Act (UE 2024) — Audit trail via --audit flag</span></div>
@@ -1290,7 +1306,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   restoreChecklist();
   updateGlobalProgress();
   restoreSessions();
+  // Lien direct vers une session : index.html#s1, #s3, #security…
+  const fromHash=location.hash.slice(1);
+  if(fromHash && document.getElementById('tab-'+fromHash)) switchTab(fromHash);
 });
 </script>
+<script src="assets/elearning.js" defer></script>
 </body>
 </html>

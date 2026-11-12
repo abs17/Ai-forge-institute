@@ -1,0 +1,7 @@
+# Pipeline NotebookLM : état local (IDs de notebooks/tâches) et sessions Google
+tools/.nlm_state.json
+storage_state.json
+**/storage_state.json
+*.tmp
+__pycache__/
+.DS_Store

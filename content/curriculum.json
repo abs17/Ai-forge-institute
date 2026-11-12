@@ -1,0 +1,79 @@
+{
+  "$comment": "Source unique du programme. Les pages HTML, le pipeline NotebookLM (tools/nlm_studio.py) et le skill OpenClaw lisent ce fichier. Modifier ici, puis régénérer les médias.",
+  "brand": "AI Forge Institute",
+  "course": "Formation OpenClaw 2026 — Ton premier agent IA local",
+  "language": "fr",
+  "model": "llama3:8b-instruct-q8_0",
+  "embed_model": "nomic-embed-text",
+  "sessions": [
+    {
+      "id": "prereqs",
+      "number": 0,
+      "title": "Prérequis & Installation",
+      "short": "Prérequis",
+      "objective": "Préparer un environnement propre : Ollama, modèle Llama 3 et CLI OpenClaw opérationnels.",
+      "source": "content/sessions/00-prerequis.md",
+      "badge": null,
+      "media": ["audio", "flashcards"]
+    },
+    {
+      "id": "s1",
+      "number": 1,
+      "title": "Fondations & Architecture locale",
+      "short": "Fondations",
+      "objective": "Comprendre les 3 couches (LLM, agent, sécurité) et la boucle Perception → Réflexion → Action → Observation.",
+      "source": "content/sessions/01-fondations.md",
+      "badge": { "id": "badge-s1", "icon": "🛡️", "label": "Guardian of Privacy" },
+      "media": ["video", "audio", "quiz", "flashcards", "slides"]
+    },
+    {
+      "id": "s2",
+      "number": 2,
+      "title": "Créer ton premier agent",
+      "short": "Premier agent",
+      "objective": "Initialiser l'agent Lobster-01, configurer agent.config.json et l'exécuter avec --audit.",
+      "source": "content/sessions/02-premier-agent.md",
+      "badge": { "id": "badge-s2", "icon": "🧠", "label": "Neural Architect" },
+      "media": ["video", "audio", "quiz", "flashcards", "slides"]
+    },
+    {
+      "id": "s3",
+      "number": 3,
+      "title": "RAG local, Sandbox & Notifications",
+      "short": "RAG & Sandbox",
+      "objective": "Brancher l'agent sur tes documents privés (RAG local), l'isoler en sandbox Docker et recevoir ses résumés sur Telegram.",
+      "source": "content/sessions/03-rag-sandbox.md",
+      "badge": { "id": "badge-s3", "icon": "🔐", "label": "Security Specialist" },
+      "media": ["video", "audio", "quiz", "flashcards", "slides"]
+    },
+    {
+      "id": "s4",
+      "number": 4,
+      "title": "Outils, Multi-Agents & Déploiement 24/7",
+      "short": "Multi-agents & 24/7",
+      "objective": "Créer un outil custom, orchestrer plusieurs agents et déployer en continu avec PM2.",
+      "source": "content/sessions/04-multi-agents-deploiement.md",
+      "badge": { "id": "badge-s4", "icon": "👑", "label": "Automator Supreme" },
+      "media": ["video", "audio", "quiz", "flashcards", "slides"]
+    },
+    {
+      "id": "security",
+      "number": 5,
+      "title": "Sécurité & RGPD France / Europe",
+      "short": "Sécurité & RGPD",
+      "objective": "Durcir le déploiement et vérifier la conformité RGPD / AI Act.",
+      "source": "content/sessions/05-securite-rgpd.md",
+      "badge": null,
+      "media": ["audio", "quiz", "flashcards"]
+    }
+  ],
+  "generation": {
+    "notebook_prefix": "AI Forge — ",
+    "video": { "format": "EXPLAINER", "style": "WHITEBOARD" },
+    "audio": { "format": "DEEP_DIVE", "length": "DEFAULT" },
+    "quiz": { "quantity": "STANDARD", "difficulty": "MEDIUM" },
+    "flashcards": { "quantity": "STANDARD", "difficulty": "MEDIUM" },
+    "slides": { "format": "DETAILED_DECK" },
+    "instructions": "Public : débutants francophones motivés. Ton : clair, concret, tutoiement. Reste strictement fidèle aux commandes et noms de fichiers des sources, sans en inventer. Insiste sur la confidentialité (tout tourne en local) et les bonnes pratiques de sécurité."
+  }
+}

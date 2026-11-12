@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OpenClaw Academy 2026 — Masterclass IA Self-Paced</title>
+<title>AI Forge Institute — Formation OpenClaw 2026</title>
+<meta name="description" content="AI Forge Institute : formation self-paced pour construire et déployer ton premier agent IA local avec Ollama et OpenClaw. Vidéos, podcasts, quiz et flashcards."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/elearning.css"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script>
@@ -203,12 +205,13 @@ body {
 <header class="sticky top-0 z-50 backdrop-blur-xl border-b border-white/[0.06] px-6 py-3 flex justify-between items-center" id="main-header" style="background:rgba(10,10,10,0.8)">
   <div class="flex items-center gap-3">
     <span class="text-2xl animate-float inline-block">🦞</span>
-    <h1 class="font-display font-black text-lg tracking-tight">OpenClaw <span style="color:var(--lobster)">Academy</span></h1>
+    <h1 class="font-display font-black text-lg tracking-tight">AI Forge <span style="color:var(--lobster)">Institute</span></h1>
   </div>
   <nav class="hidden md:flex gap-7 text-sm font-medium" style="opacity:.7">
     <a href="#curriculum" class="hover:opacity-100 transition" style="transition:color .2s" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Programme</a>
     <a href="#self-paced" class="hover:opacity-100 transition" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Auto-formation</a>
     <a href="#security" class="hover:opacity-100 transition" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Sécurité/RGPD</a>
+    <a href="index.html" class="hover:opacity-100 transition" onmouseover="this.style.color='#FF6B00'" onmouseout="this.style.color=''">Cours interactif</a>
   </nav>
   <div class="flex items-center gap-3">
     <!-- THEME TOGGLE -->
@@ -222,8 +225,8 @@ body {
         <span id="theme-label" class="text-xs font-bold uppercase tracking-widest hidden md:inline" style="color:var(--lobster)">Dark</span>
       </div>
     </button>
-    <a href="#start" class="relative overflow-hidden shimmer-btn bg-[#FF6B00] text-white px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,107,0,0.6)] hover:scale-105">
-      Start Building
+    <a href="index.html" class="relative overflow-hidden shimmer-btn bg-[#FF6B00] text-white px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,107,0,0.6)] hover:scale-105">
+      Commencer le cours
     </a>
   </div>
 </header>
@@ -254,6 +257,7 @@ body {
     <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--cyan-neon)">⚡ Latence Zéro</span>
     <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--lobster)">🤖 Auto-Formation 100% Possible</span>
     <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🦞 Open Source</span>
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🎬 Vidéos, podcasts &amp; quiz</span>
   </div>
 
   <!-- INSTRUCTOR CARD -->
@@ -297,14 +301,14 @@ body {
           <div style="position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.3),transparent);animation:scanline 3s linear infinite;pointer-events:none"></div>
         </div>
         <pre class="p-6 font-mono text-sm overflow-x-auto leading-relaxed" style="color:#e0e0e0"><code id="code-install"><span style="color:#6C757D"># 1. Installer Ollama</span>
-<span style="color:#FF6B00">curl</span> <span style="color:#00F5FF">-fsSL</span> https://ollama.com/install.sh | bash
+<span style="color:#FF6B00">curl</span> <span style="color:#00F5FF">-fsSL</span> https://ollama.com/install.sh | sh
 
 <span style="color:#6C757D"># 2. Pull le modèle</span>
-<span style="color:#FF6B00">ollama</span> run llama3:8b-instruct-q8_0
+<span style="color:#FF6B00">ollama</span> pull llama3:8b-instruct-q8_0
 
 <span style="color:#6C757D"># 3. Lancer OpenClaw</span>
 <span style="color:#FF6B00">openclaw</span> init --template autonomous-researcher
-<span style="color:#FF6B00">openclaw</span> run --sandbox<span class="terminal-cursor"></span></code></pre>
+<span style="color:#FF6B00">openclaw</span> run agent.config.json --sandbox<span class="terminal-cursor"></span></code></pre>
         <button onclick="copyCodeBlock('code-install')" class="absolute top-10 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
       </div>
     </div>
@@ -360,21 +364,11 @@ body {
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 1 — Architecture &amp; Local LLM</h4>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 1 — Fondations &amp; Architecture locale</h4>
       <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Transformer ton ordinateur en forge à IA sans dépendre du Cloud. Confidentialité totale, latence zéro, coût nul.</p>
 
-      <!-- Video placeholder -->
-      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center relative overflow-hidden border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo bientôt disponible — Reviens le Jour J !')">
-            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 neon-lobster" style="background:rgba(255,107,0,0.2);border:2px solid #FF6B00">
-              <span class="text-2xl ml-1">▶</span>
-            </div>
-            <span class="text-sm font-bold" style="color:var(--lobster)">Session 1 — Aperçu Vidéo</span>
-          </button>
-        </div>
-        <div class="absolute bottom-4 right-4 text-xs px-3 py-1 rounded-full" style="background:rgba(0,0,0,0.6);opacity:.7">~45 min</div>
-      </div>
+      <div data-elearning="s1" data-kinds="video,audio"></div>
+      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s1" style="color:var(--lobster);font-weight:700">ouvrir la session 1 dans le cours →</a></p>
 
       <!-- Code blocks -->
       <div class="space-y-4 mb-6">
@@ -385,14 +379,14 @@ body {
 <span style="color:#FF6B00">curl</span> -fsSL https://ollama.com/install.sh | sh
 
 <span style="color:#6C757D"># Pull du modèle optimisé pour OpenClaw</span>
-<span style="color:#FF6B00">ollama</span> run llama3:8b-instruct-q8_0
+<span style="color:#FF6B00">ollama</span> pull llama3:8b-instruct-q8_0
 
 <span style="color:#6C757D"># Vérification</span>
 <span style="color:#FF6B00">ollama</span> list
 
 <span style="color:#6C757D"># Test API locale (port 11434)</span>
 <span style="color:#FF6B00">curl</span> http://localhost:11434/api/generate \
-  -d '{"model":"llama3","prompt":"Hello OpenClaw !"}'</code></pre>
+  -d '{"model":"llama3:8b-instruct-q8_0","prompt":"Hello OpenClaw !","stream":false}'</code></pre>
           <button onclick="copyCodeBlock('code-s1')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
         </div>
       </div>
@@ -405,12 +399,12 @@ body {
 
       <!-- Mini-Quiz S1 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — Pourquoi utiliser Ollama en local ?</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Pourquoi utiliser Ollama en local ?</p>
         <div class="space-y-2" id="quiz-s1">
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">A. Confidentialité totale &amp; conformité RGPD</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">A. Confidentialité des données et aucune dépendance externe</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">B. Pour augmenter les coûts de votre infrastructure</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">C. Parce que les API cloud sont plus rapides</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">D. Latence zéro + zéro dépendance externe</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">D. Pour que le modèle se mette à jour automatiquement depuis le cloud</button>
         </div>
       </div>
 
@@ -428,17 +422,11 @@ body {
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 2 — OpenClaw Core : Ton Premier Agent</h4>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 2 — Créer ton premier agent</h4>
       <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Passer d'un simple chatbot à un agent qui exécute des scripts. Maîtriser la boucle Perception → Réflexion → Action → Observation.</p>
 
-      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
-        <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo Session 2 — Bientôt disponible !')">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all group-hover:scale-110 neon-cyan" style="background:rgba(0,245,255,0.1);border:2px solid #00F5FF">
-            <span class="text-2xl ml-1" style="color:#00F5FF">▶</span>
-          </div>
-          <span class="text-sm font-bold" style="color:var(--cyan-neon)">Session 2 — Aperçu Vidéo</span>
-        </button>
-      </div>
+      <div data-elearning="s2" data-kinds="video,audio"></div>
+      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s2" style="color:var(--lobster);font-weight:700">ouvrir la session 2 dans le cours →</a></p>
 
       <div class="space-y-4 mb-6">
         <p class="text-sm font-bold" style="opacity:.7">📋 Initialisation du projet :</p>
@@ -467,7 +455,7 @@ body {
 
       <!-- Mini-Quiz S2 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — La boucle OpenClaw</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — La boucle OpenClaw</p>
         <div class="space-y-2" id="quiz-s2">
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s2')">A. Perception → Réflexion → Action → Observation</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">B. Input → Output → Stop</button>
@@ -489,17 +477,11 @@ body {
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 3 — Sécurité, RAG &amp; Sandbox</h4>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 3 — RAG local, Sandbox &amp; Notifications</h4>
       <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Connecter l'IA à tes documents privés en toute sécurité. Le RAG local : l'agent lit tes PDF, mais rien ne sort de ton réseau.</p>
 
-      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
-        <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo Session 3 — Bientôt !')">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all group-hover:scale-110" style="background:rgba(239,68,68,0.1);border:2px solid #EF4444">
-            <span class="text-2xl ml-1" style="color:#FCA5A5">▶</span>
-          </div>
-          <span class="text-sm font-bold" style="color:#FCA5A5">Session 3 — Aperçu Vidéo</span>
-        </button>
-      </div>
+      <div data-elearning="s3" data-kinds="video,audio"></div>
+      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s3" style="color:var(--lobster);font-weight:700">ouvrir la session 3 dans le cours →</a></p>
 
       <div class="space-y-4 mb-6">
         <p class="text-sm font-bold" style="opacity:.7">📋 Sandbox Docker &amp; RAG :</p>
@@ -514,7 +496,7 @@ body {
         </div>
         <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
           <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">javascript · RAG local</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s3b"><span style="color:#86EFAC">import</span> { LocalMemory } <span style="color:#86EFAC">from</span> <span style="color:#FCD34D">'@openclaw/memory'</span>;
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s3b"><span style="color:#86EFAC">import</span> { LocalMemory } <span style="color:#86EFAC">from</span> <span style="color:#FCD34D">'@openclaw/sdk'</span>;
 
 <span style="color:#6C757D">// Connecter l'agent à tes docs privés</span>
 <span style="color:#86EFAC">const</span> memory = <span style="color:#86EFAC">new</span> LocalMemory(<span style="color:#FCD34D">'./my-private-docs'</span>);
@@ -531,12 +513,12 @@ body {
 
       <!-- Mini-Quiz S3 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — RAG Local &amp; Sécurité</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Que permet le RAG local ?</p>
         <div class="space-y-2" id="quiz-s3">
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">A. Le RAG envoie tous tes documents au cloud OpenAI</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s3')">B. Le RAG local permet à l'IA d'interroger tes docs sans quitter ton réseau</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">C. RAG = Random Access Generator, aucun rapport avec la mémoire</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s3')">D. La sandbox Docker isole les exécutions pour plus de sécurité</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">D. Le RAG remplace la sandbox Docker</button>
         </div>
       </div>
 
@@ -554,24 +536,18 @@ body {
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 4 — Déploiement 24/7 &amp; Automatisation</h4>
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 4 — Outils, Multi-Agents &amp; Déploiement 24/7</h4>
       <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Lâcher ton agent dans la nature digitale. PM2 ou Systemd pour que l'agent survive aux redémarrages et travaille même quand tu dors.</p>
 
-      <div class="aspect-video w-full rounded-xl mb-6 flex items-center justify-center border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07)">
-        <button class="flex flex-col items-center gap-3 group" onclick="showToast('🎬 Vidéo Session 4 — Le Graal. Bientôt !')">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all group-hover:scale-110" style="background:rgba(234,179,8,0.12);border:2px solid #EAB308">
-            <span class="text-2xl ml-1" style="color:#FCD34D">▶</span>
-          </div>
-          <span class="text-sm font-bold" style="color:#FCD34D">Session 4 — Aperçu Vidéo</span>
-        </button>
-      </div>
+      <div data-elearning="s4" data-kinds="video,audio"></div>
+      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s4" style="color:var(--lobster);font-weight:700">ouvrir la session 4 dans le cours →</a></p>
 
       <div class="space-y-4 mb-6">
         <p class="text-sm font-bold" style="opacity:.7">📋 Déploiement PM2 &amp; Daemon :</p>
         <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
           <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 4 · PM2</div>
           <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s4"><span style="color:#6C757D"># Garder l'agent actif 24/7 avec PM2</span>
-<span style="color:#FF6B00">pm2</span> start <span style="color:#FCD34D">"openclaw run agent.config.json"</span> --name my-247-agent
+<span style="color:#FF6B00">pm2</span> start <span style="color:#FCD34D">"openclaw run agent.config.json --audit"</span> --name my-247-agent
 
 <span style="color:#6C757D"># Sauvegarder pour survie au reboot</span>
 <span style="color:#FF6B00">pm2</span> save
@@ -621,12 +597,12 @@ body {
 
       <!-- Mini-Quiz S4 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-Quizz — Déploiement &amp; PM2</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — À quoi sert PM2 ?</p>
         <div class="space-y-2" id="quiz-s4">
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s4')">A. PM2 maintient ton agent actif après un redémarrage système</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">B. Il faut un abonnement cloud pour faire tourner un agent 24/7</button>
           <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">C. PM2 est uniquement pour les sites web, pas pour les agents IA</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s4')">D. En local, le coût en tokens est de 0€ — toujours</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">D. PM2 déplace l'agent sur un serveur cloud</button>
         </div>
       </div>
 
@@ -668,7 +644,7 @@ body {
           </li>
           <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Conformité CNIL vérifiée</span>
+            <span>Recommandations CNIL sur l'IA appliquées</span>
           </li>
           <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
@@ -690,7 +666,7 @@ body {
           </li>
           <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Modèle LLM open-source (Llama 3) — Pas de dépendance propriétaire</span>
+            <span>LLM open-weight (Llama 3) — pas de dépendance à une API propriétaire</span>
           </li>
           <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
@@ -714,9 +690,9 @@ body {
 <footer class="py-12 px-6 border-t text-center" style="border-color:rgba(255,255,255,0.05)">
   <div class="flex justify-center items-center gap-3 mb-4">
     <span class="text-2xl animate-float inline-block">🦞</span>
-    <span class="font-display font-black text-lg">OpenClaw <span style="color:var(--lobster)">Academy</span></span>
+    <span class="font-display font-black text-lg">AI Forge <span style="color:var(--lobster)">Institute</span></span>
   </div>
-  <p class="text-sm" style="opacity:.35">© 2026 OpenClaw Academy · 100% Self-Paced · 100% Local · 100% RGPD</p>
+  <p class="text-sm" style="opacity:.35">© 2026 AI Forge Institute · Formation OpenClaw · 100% Self-Paced · 100% Local · 100% RGPD</p>
   <p class="text-xs mt-2" style="opacity:.2">Fait avec 🦞 par Chinat Yu · Stanford LDT</p>
 </footer>
 
@@ -727,19 +703,39 @@ body {
 
 <script>
 // ─────────────── STATE ───────────────
+// Progression partagée avec le cours (index.html) : sessions validées = 'openclaw_sessions_done'.
+function readStore(key, fallback) {
+  try { const v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; } catch (e) { return fallback; }
+}
+function writeStore(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* stockage indisponible */ }
+}
 const state = {
-  progress: JSON.parse(localStorage.getItem('openclaw_progress') || '[]'),
-  theme: localStorage.getItem('openclaw_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'),
+  progress: readStore('openclaw_progress', []).filter(id => String(id).startsWith('check-')),
+  sessionsDone: readStore('openclaw_sessions_done', []),
+  theme: (function () { try { return localStorage.getItem('openclaw_theme'); } catch (e) { return null; } })() || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'),
   timerActive: false,
   timerInterval: null,
   sessions: [
-    { id: 1, title: 'Architecture & Local' },
-    { id: 2, title: 'Tool Calling & Agents' },
-    { id: 3, title: 'RAG & Memory' },
-    { id: 4, title: 'Deployment 24/7' }
+    { id: 1, title: 'Fondations & Architecture locale' },
+    { id: 2, title: 'Créer ton premier agent' },
+    { id: 3, title: 'RAG local, Sandbox & Notifications' },
+    { id: 4, title: 'Outils, Multi-Agents & Déploiement 24/7' }
   ]
 };
-const TOTAL_STEPS = 8; // 4 sessions + 4 checklist items
+// Jalons du dashboard. `auto` : validé automatiquement à partir des sessions terminées.
+const MILESTONES = [
+  { id: 'check-0', label: 'Ollama installé', emoji: '⚙️' },
+  { id: 'check-1', label: 'Modèle Llama 3 prêt', emoji: '🦙' },
+  { id: 'check-2', label: 'Session 1 terminée', emoji: '🎓', auto: () => state.sessionsDone.includes('s1') },
+  { id: 'check-3', label: 'Agent Lobster-01 lancé', emoji: '🤖' },
+  { id: 'check-4', label: 'Sandbox Docker', emoji: '🐳' },
+  { id: 'check-5', label: 'RAG local indexé', emoji: '📚' },
+  { id: 'check-6', label: 'PM2 configuré', emoji: '⚡' },
+  { id: 'check-7', label: 'Toutes les sessions ✅', emoji: '👑', auto: () => ['s1','s2','s3','s4'].every(id => state.sessionsDone.includes(id)) }
+];
+const TOTAL_STEPS = MILESTONES.length;
+const isMilestoneDone = (m) => state.progress.includes(m.id) || (m.auto ? m.auto() : false);
 
 // ─────────────── THEME TOGGLE ───────────────
 function applyTheme(theme) {
@@ -792,14 +788,14 @@ function initTheme() {
   applyTheme(state.theme);
   document.getElementById('theme-toggle').addEventListener('click', () => {
     state.theme = state.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('openclaw_theme', state.theme);
+    try { localStorage.setItem('openclaw_theme', state.theme); } catch (e) { /* ignoré */ }
     applyTheme(state.theme);
   });
 }
 
 // ─────────────── PROGRESS ───────────────
 function updateProgress() {
-  const done = state.progress.length;
+  const done = MILESTONES.filter(isMilestoneDone).length;
   const pct = Math.min(100, Math.round((done / TOTAL_STEPS) * 100));
   const bar = document.getElementById('progress-bar');
   const txt = document.getElementById('progress-text');
@@ -817,20 +813,11 @@ function updateProgress() {
 // ─────────────── CHECKLIST ───────────────
 function initChecklist() {
   const container = document.getElementById('checklist-container');
-  const items = [
-    { id: 'check-0', label: 'Installer Ollama', emoji: '⚙️' },
-    { id: 'check-1', label: 'Cloner le Repo', emoji: '📂' },
-    { id: 'check-2', label: 'Session 1 Terminée', emoji: '🎓' },
-    { id: 'check-3', label: 'Quiz 1 Réussi', emoji: '🧠' },
-    { id: 'check-4', label: 'Sandbox Docker', emoji: '🐳' },
-    { id: 'check-5', label: 'Agent déployé', emoji: '🤖' },
-    { id: 'check-6', label: 'PM2 Configuré', emoji: '⚡' },
-    { id: 'check-7', label: 'Toutes Sessions ✅', emoji: '👑' }
-  ];
+  const items = MILESTONES;
 
   container.innerHTML = '';
   items.forEach((item, i) => {
-    const isDone = state.progress.includes(item.id);
+    const isDone = isMilestoneDone(item);
     const card = document.createElement('div');
     card.className = 'check-card p-4 rounded-xl border' + (isDone ? ' check-done' : '');
     card.style.cssText = isDone
@@ -843,9 +830,11 @@ function initChecklist() {
       <span class="text-xs font-bold leading-tight">${item.label}</span>
     </div>`;
     card.onclick = () => {
-      if (!isDone) {
+      if (!isDone && item.auto) {
+        showToast('Ce jalon se valide en terminant les sessions 🎓');
+      } else if (!isDone) {
         state.progress.push(item.id);
-        localStorage.setItem('openclaw_progress', JSON.stringify(state.progress));
+        writeStore('openclaw_progress', state.progress);
         showToast('Étape validée ! 🦞 +1');
         initChecklist();
         updateProgress();
@@ -859,10 +848,11 @@ function initChecklist() {
 
 // ─────────────── SESSION DONE ───────────────
 function markSessionDone(num) {
-  const key = 'session-' + num;
-  if (!state.progress.includes(key)) {
-    state.progress.push(key);
-    localStorage.setItem('openclaw_progress', JSON.stringify(state.progress));
+  const key = 's' + num;
+  if (!state.sessionsDone.includes(key)) {
+    state.sessionsDone.push(key);
+    writeStore('openclaw_sessions_done', state.sessionsDone);
+    initChecklist();
     updateProgress();
   }
   const card = document.querySelector(`[data-session="${num}"]`);
@@ -920,11 +910,6 @@ function handleQuiz(btn, quizId) {
   if (btn.dataset.correct === 'true') {
     btn.classList.add('quiz-correct');
     showToast('Bien joué ! 🎯 Bonne réponse');
-    if (!state.progress.includes('quiz-' + quizId)) {
-      state.progress.push('quiz-' + quizId);
-      localStorage.setItem('openclaw_progress', JSON.stringify(state.progress));
-      updateProgress();
-    }
   } else {
     btn.classList.add('quiz-wrong');
     // Reveal correct answer
@@ -1110,7 +1095,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Restore session badges
   state.sessions.forEach(s => {
-    if (state.progress.includes('session-' + s.id)) {
+    if (state.sessionsDone.includes('s' + s.id)) {
       const card = document.querySelector(`[data-session="${s.id}"]`);
       if (card) {
         const badge = card.querySelector('.badge-completed');
@@ -1121,5 +1106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<script src="assets/elearning.js" defer></script>
 </body>
 </html>

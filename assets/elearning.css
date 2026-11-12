@@ -1,0 +1,80 @@
+/* AI Forge Institute — lecteur e-learning (assets/elearning.js). Suit le thème .dark/.light des pages. */
+.fe-root {
+  --fe-accent: #FF6B00;
+  --fe-accent-soft: rgba(255, 107, 0, 0.14);
+  --fe-ink: inherit;
+  --fe-muted: rgba(240, 237, 232, 0.6);
+  --fe-line: rgba(255, 255, 255, 0.1);
+  --fe-surface: rgba(255, 255, 255, 0.04);
+  --fe-ok: #22C55E;
+  --fe-ok-soft: rgba(34, 197, 94, 0.15);
+  --fe-ko: #EF4444;
+  --fe-ko-soft: rgba(239, 68, 68, 0.14);
+  border: 1px solid var(--fe-line);
+  background: var(--fe-surface);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 0 0 24px;
+  font-size: 0.92rem;
+}
+.light .fe-root {
+  --fe-accent: #C24E00;
+  --fe-accent-soft: rgba(229, 90, 0, 0.1);
+  --fe-muted: rgba(26, 26, 26, 0.62);
+  --fe-line: rgba(0, 0, 0, 0.1);
+  --fe-surface: rgba(255, 255, 255, 0.85);
+  --fe-ok: #15803D;
+  --fe-ko: #B91C1C;
+}
+.fe-root * { box-sizing: border-box; }
+.fe-muted { color: var(--fe-muted); font-size: 0.82rem; margin: 0; }
+.fe-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.fe-kicker { font-weight: 800; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fe-accent); }
+.fe-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 12px; border-bottom: 1px solid var(--fe-line); }
+.fe-tab, .fe-chip, .fe-btn, .fe-opt {
+  font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--fe-line);
+  background: transparent; border-radius: 10px; transition: background .2s, border-color .2s, transform .15s;
+}
+.fe-tab { padding: 7px 12px; font-size: 0.82rem; font-weight: 700; white-space: nowrap; }
+.fe-tab[aria-selected="true"] { background: var(--fe-accent-soft); border-color: var(--fe-accent); color: var(--fe-accent); }
+.fe-chip { padding: 6px 11px; font-size: 0.8rem; font-weight: 600; }
+.fe-chip.is-on { border-color: var(--fe-accent); color: var(--fe-accent); background: var(--fe-accent-soft); }
+.fe-btn { display: inline-block; padding: 9px 16px; font-weight: 700; margin-top: 12px; text-decoration: none; border-color: var(--fe-accent); color: var(--fe-accent); }
+.fe-tab:hover, .fe-chip:hover, .fe-btn:hover { border-color: var(--fe-accent); }
+.fe-tab:focus-visible, .fe-chip:focus-visible, .fe-btn:focus-visible, .fe-opt:focus-visible, .fe-card:focus-visible { outline: 2px solid var(--fe-accent); outline-offset: 2px; }
+.fe-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.fe-between { justify-content: space-between; margin-top: 0; }
+.fe-center { justify-content: center; }
+.fe-video { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; background: #000; display: block; }
+.fe-audio { width: 100%; margin-top: 8px; }
+.fe-bar { height: 4px; border-radius: 4px; background: var(--fe-line); margin: 8px 0 14px; overflow: hidden; }
+.fe-bar > div { height: 100%; background: var(--fe-accent); transition: width .3s; }
+.fe-q { font-weight: 700; font-size: 1rem; line-height: 1.5; margin: 0 0 12px; }
+.fe-opts { display: grid; gap: 8px; }
+.fe-opt { text-align: left; padding: 11px 14px; line-height: 1.45; }
+.fe-opt:not(:disabled):hover { border-color: var(--fe-accent); background: var(--fe-accent-soft); }
+.fe-opt:disabled { cursor: default; }
+.fe-opt.is-correct { border-color: var(--fe-ok); background: var(--fe-ok-soft); }
+.fe-opt.is-wrong { border-color: var(--fe-ko); background: var(--fe-ko-soft); }
+.fe-feedback { margin-top: 12px; line-height: 1.55; }
+.fe-feedback:empty { display: none; }
+.fe-hint { margin-top: 10px; }
+.fe-hint summary { cursor: pointer; font-weight: 600; color: var(--fe-accent); }
+.fe-hint p { margin: 6px 0 0; color: var(--fe-muted); }
+.fe-score { font-size: 2.4rem; font-weight: 900; color: var(--fe-accent); margin: 4px 0; }
+.fe-card {
+  width: 100%; min-height: 190px; margin-top: 10px; padding: 22px; border-radius: 14px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; text-align: center;
+  border: 1px solid var(--fe-line); background: var(--fe-surface); color: inherit; font: inherit; cursor: pointer;
+}
+.fe-card.is-flipped { border-color: var(--fe-accent); background: var(--fe-accent-soft); }
+.fe-card-side { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fe-accent); }
+.fe-card-text { font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+.fe-card-tip { font-size: 0.75rem; color: var(--fe-muted); }
+.fe-doc iframe { width: 100%; height: 480px; border: 1px solid var(--fe-line); border-radius: 12px; background: #fff; }
+.fe-doc img { max-width: 100%; border-radius: 12px; display: block; }
+.fe-empty { text-align: center; padding: 28px 12px; }
+.fe-empty-icon { font-size: 2rem; }
+.fe-empty-title { font-weight: 800; margin: 6px 0 4px; }
+@media (max-width: 520px) { .fe-doc iframe { height: 340px; } .fe-card { min-height: 160px; } }
+@media (prefers-reduced-motion: reduce) { .fe-root * { transition: none !important; } }

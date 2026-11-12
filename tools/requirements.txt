@@ -1,0 +1,2 @@
+# Pipeline NotebookLM d'AI Forge Studio (même lib que abs17/notebooklm-ui)
+notebooklm-py>=0.8.6
