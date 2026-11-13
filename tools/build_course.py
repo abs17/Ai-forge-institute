@@ -38,7 +38,9 @@ LANDING = ROOT / "openclaw-masterclass-2026.html"
 COLORS = {  # couleur d'accent par session (reprend le design existant)
     "prereqs": ("#FF6B00", "rgba(255,107,0,"), "s1": ("#FF6B00", "rgba(255,107,0,"),
     "s2": ("#00F5FF", "rgba(0,245,255,"), "s3": ("#FCA5A5", "rgba(239,68,68,"),
-    "s4": ("#FCD34D", "rgba(234,179,8,"), "security": ("#86EFAC", "rgba(34,197,94,"),
+    "s4": ("#FCD34D", "rgba(234,179,8,"), "s5": ("#93C5FD", "rgba(59,130,246,"),
+    "s6": ("#FCA5A5", "rgba(239,68,68,"), "s7": ("#86EFAC", "rgba(34,197,94,"),
+    "s8": ("#C4B5FD", "rgba(139,92,246,"), "security": ("#86EFAC", "rgba(34,197,94,"),
 }
 CODE_STYLE = 'class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)"'
 CALLOUTS = {"💡": ("#FF6B00", "rgba(255,107,0,0.07)", "rgba(255,107,0,0.2)"),
@@ -355,6 +357,7 @@ def build_landing_sessions(sessions_data) -> str:
         fg, rgba = COLORS[sid]
         codes = [b for sec in content for b in sec["blocks"] if b.kind == "code" and "landing" in b.flags]
         code_html = "\n".join(landing_code(b, f"code-landing-{sid}-{k}") for k, b in enumerate(codes))
+        b = s["badge"]
         mini = ""
         if quiz:
             q = quiz[0]
@@ -364,9 +367,8 @@ def build_landing_sessions(sessions_data) -> str:
             mini = (f'      <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">\n'
                     f'        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — {inline(q["question"])}</p>\n'
                     f'        <div class="space-y-2" id="quiz-{sid}">\n{opts}\n        </div>\n      </div>')
-        b = s["badge"]
         cards.append(f'''    <!-- SESSION {n} -->
-    <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="{n}" style="border-color:rgba(255,255,255,0.07)">
+    <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="{n}" data-badge="{html.escape(b["label"])}"{' data-final="1"' if b.get("final") else ""} style="border-color:rgba(255,255,255,0.07)">
       <div class="flex justify-between items-start mb-4">
         <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07;color:inherit">{n:02d}</span>
         <div class="flex items-center gap-3">
@@ -433,7 +435,10 @@ def build_landing_quickstart(sessions_data) -> str:
 
 
 def build_landing_security(sessions_data) -> str:
-    _, checklists, _ = sessions_data["security"]
+    src = next((x["id"] for x in CUR["sessions"] if x.get("landing_checklists")), None)
+    if not src:
+        sys.exit("Aucune session avec landing_checklists: true")
+    _, checklists, _ = sessions_data[src]
     cards = []
     for t, items in checklists:
         flag = "🇫🇷" if "france" in t.lower() else "🇪🇺" if "europe" in t.lower() else "✅"
@@ -466,10 +471,18 @@ def build_resources() -> str:
         f'        <span class="accordion-arrow text-xs" style="opacity:.5">▼</span>\n      </div>\n'
         f'      <div class="accordion-body px-4 pb-4"><p class="text-sm" style="opacity:.65;line-height:1.7">{inline(g["def"])}</p></div>'
         for g in res.get("glossary", []))
+    badges = "\n".join(
+        f'      <div class="p-4 rounded-xl text-center" style="background:{COLORS.get(x["id"], COLORS["s1"])[1]}0.07);border:1px solid {COLORS.get(x["id"], COLORS["s1"])[1]}0.2)">\n'
+        f'        <div class="text-3xl mb-2">{x["badge"]["icon"]}</div>\n'
+        f'        <p class="text-xs font-bold" style="color:{COLORS.get(x["id"], COLORS["s1"])[0]}">{html.escape(x["badge"]["label"])}</p>\n'
+        f'        <p class="text-xs mt-1" style="opacity:.5">{label_for(x)}</p>\n      </div>'
+        for x in CUR["sessions"] if x.get("badge"))
     return (f'  <div class="glass border rounded-2xl p-6 mb-6">\n    <h3 class="font-display font-bold text-xl mb-4">🔗 Liens officiels</h3>\n'
             f'    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">\n{links}\n    </div>\n  </div>\n'
             f'  <div class="glass border rounded-2xl p-6 mb-6">\n    <h3 class="font-display font-bold text-xl mb-4">📖 Glossaire</h3>\n'
-            f'    <div class="space-y-1" id="glossaire">\n{gloss}\n    </div>\n  </div>\n')
+            f'    <div class="space-y-1" id="glossaire">\n{gloss}\n    </div>\n  </div>\n'
+            f'  <div class="glass border rounded-2xl p-6 mb-6">\n    <h3 class="font-display font-bold text-xl mb-4">🏆 Tous les badges</h3>\n'
+            f'    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">\n{badges}\n    </div>\n  </div>\n')
 
 
 # ─── Injection ──────────────────────────────────────────────────────────────

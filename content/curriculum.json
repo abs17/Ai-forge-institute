@@ -128,7 +128,8 @@
         "quiz",
         "flashcards",
         "infographic"
-      ]
+      ],
+      "landing_checklists": true
     }
   ],
   "generation": {
