@@ -1,6 +1,6 @@
 # Session 4 — Automatisation, Multi-agents & 24/7
 
-*AI Forge Institute · Formation OpenClaw 2026 · Badge final : 👑 Automator Supreme*
+*AI Forge Institute · Formation OpenClaw 2026 · Badge : 🤖 Automator Supreme*
 
 **Objectif :** faire travailler ton agent tout seul à heures fixes, répartir les rôles entre plusieurs agents et le garder actif en continu.
 

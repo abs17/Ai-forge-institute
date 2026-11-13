@@ -122,7 +122,7 @@ openclaw sandbox explain
 openclaw sandbox list
 ```
 
-> 💡 **Ce que la sandbox ne fait pas** — La Gateway reste sur ta machine : seule l'exécution des outils est isolée. La documentation précise que ce n'est « pas une frontière de sécurité parfaite ». On la combine avec des restrictions d'outils (module Sécurité).
+> 💡 **Ce que la sandbox ne fait pas** — La Gateway reste sur ta machine : seule l'exécution des outils est isolée. La documentation précise que ce n'est « pas une frontière de sécurité parfaite ». On la combine avec des restrictions d'outils (session 6).
 
 ## Checklist
 

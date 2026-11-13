@@ -58,7 +58,7 @@ openclaw onboard --install-daemon
 
 Cette variante ouvre l'assistant complet (modèle, canaux, skills) et installe en plus le service d'arrière-plan. Pour le modèle, choisis **Ollama**, puis **Local only**.
 
-> ⚠️ **Accès complet par défaut** — Le Quick start crée un agent `main` avec un accès complet à ta machine : il peut lire, écrire et exécuter des commandes. C'est pratique pour apprendre, mais nous resserrerons ces droits dans le module Sécurité.
+> ⚠️ **Accès complet par défaut** — Le Quick start crée un agent `main` avec un accès complet à ta machine : il peut lire, écrire et exécuter des commandes. C'est pratique pour apprendre, mais nous resserrerons ces droits dans la session 6 (Sécurité avancée).
 
 ## 4. Vérifier l'installation
 

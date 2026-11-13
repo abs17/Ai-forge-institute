@@ -71,7 +71,7 @@ openclaw
 
 ## Local ou cloud : être lucide
 
-Un modèle local garde tes conversations chez toi et ne coûte rien à l'usage. La documentation d'OpenClaw rappelle aussi ses limites : les petits modèles suivent moins bien les instructions et résistent moins bien à l'injection de prompt. Avec un modèle local, on garde donc des outils limités et une sandbox (sessions 3 et Sécurité). Tu peux définir un modèle cloud en secours avec `agents.defaults.model.fallbacks`, en sachant que les messages concernés partiront alors chez ce fournisseur.
+Un modèle local garde tes conversations chez toi et ne coûte rien à l'usage. La documentation d'OpenClaw rappelle aussi ses limites : les petits modèles suivent moins bien les instructions et résistent moins bien à l'injection de prompt. Avec un modèle local, on garde donc des outils limités et une sandbox (sessions 3 et 6). Tu peux définir un modèle de secours (par exemple Mistral, session 5) avec `agents.defaults.model.fallbacks`, en sachant que les messages concernés partiront alors chez ce fournisseur.
 
 ## Checklist
 

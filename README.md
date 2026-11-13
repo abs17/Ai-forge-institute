@@ -28,7 +28,7 @@ tools/
 openclaw-skill/
   forge-nlm-studio/SKILL.md ← skill OpenClaw pour piloter le pipeline depuis un agent
 docs/COHERENCE.md          ← version de référence, validation, points ouverts
-docs/GENERATIONS.md        ← liste des 28 générations NotebookLM à faire
+docs/GENERATIONS.md        ← liste des 45 générations NotebookLM à faire
 ```
 
 Pour ajouter un média à une session, il suffit de placer un `<div data-elearning="s2"></div>` dans une page (option `data-kinds="video,audio"` pour filtrer) : le lecteur se branche tout seul sur `media/manifest.json`. Sans média, il affiche « Supports multimédias en préparation ».

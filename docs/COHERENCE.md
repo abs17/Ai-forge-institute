@@ -38,6 +38,23 @@ Points de vigilance ajoutés au cours parce que la doc officielle les signale :
 - les petits modèles locaux résistent moins bien à l'injection de prompt ;
 - `TOOLS.md` et `HEARTBEAT.md` ne sont plus lus ; `agents.list` devient `agents.entries`.
 
+## Modules 5 à 8 : Mistral, sécurité avancée, RGPD & AI Act, comparatif (13/11/2026)
+
+Positionnement : se différencier par la souveraineté (modèles Mistral, local d'abord) et par une partie sécurité et conformité plus poussée que les formations OpenClaw existantes.
+
+**Ce qui est vérifié à la source**
+- Configuration Mistral dans OpenClaw (plugin `@openclaw/mistral-provider`, `--auth-choice mistral-api-key`, identifiants de modèles, `memory.search.provider: "mistral"`, comportement strict des modèles par agent) : documentation officielle OpenClaw 2026.11.3.
+- Comparatif : dépôts GitHub de Hermes Agent, NanoClaw, ZeroClaw, nanobot et IronClaw (README, SECURITY.md, docs, tags, étoiles au 13/11/2026).
+- Incidents OpenClaw : CVE-2026-25253 (corrigée en 2026.1.29), campagne ClawHavoc (341 puis 824 skills malveillants, Koi Security), avis du CCB belge d'avril 2026.
+
+**Repris de sources secondaires, à confirmer sur les textes officiels avant publication**
+- Règlement « Omnibus numérique » de 2026 : report de l'annexe III au 2 décembre 2027 et de l'annexe I au 2 août 2028 (plusieurs cabinets d'avocats concordent ; le cours ne cite pas de numéro de règlement).
+- Note exploratoire CNIL sur l'IA agentique (été 2026) : contenu résumé d'après la presse spécialisée.
+- Mistral : signature du code de bonnes pratiques GPAI, absence d'entraînement sur les données API par défaut, conservation zéro sur demande, certifications SOC 2 / ISO 27001 / 27701, hébergement UE par défaut. À vérifier sur le portail de confiance de Mistral au moment de signer.
+- Tags Ollama `ministral-3:8b` et `mistral-small3.2` : confirmés par le registre Ollama via des résultats de recherche, pas par un téléchargement.
+
+**Volontairement non repris** : une alerte ANSSI référencée « CERTFR-2026-ACT-016 » citée par certains sites (introuvable à la source), et les chiffres d'instances exposées, trop variables selon les études (le cours parle de « dizaines de milliers »).
+
 ## Harmonisation précédente (12/11/2026)
 
 Nom unique « AI Forge Institute — Formation OpenClaw 2026 » ; titres de sessions identiques entre landing et cours ; mini-quiz à une seule bonne réponse ; progression partagée entre les deux pages ; corrections RGPD (DPO, CNIL, open-weight) ; usage de NotebookLM explicité.
@@ -52,5 +69,5 @@ Le nom n'est plus écrit en dur. La landing affiche « l'équipe AI Forge Instit
 
 ## Points ouverts
 
-1. **Test réel du parcours.** Toutes les commandes viennent de la documentation officielle de la version 2026.11.3, mais le parcours n'a pas été exécuté de bout en bout sur une machine avec Ollama et Telegram. À faire une fois avant l'ouverture : suivre les sessions 0 à 4 sur une machine vierge.
-2. **Médias NotebookLM.** 28 générations à faire et à relire : voir `docs/GENERATIONS.md`.
+1. **Test réel du parcours.** Toutes les commandes viennent de la documentation officielle de la version 2026.11.3, mais le parcours n'a pas été exécuté de bout en bout sur une machine avec Ollama et Telegram. À faire une fois avant l'ouverture : suivre les sessions 0 à 6 sur une machine vierge, y compris les réglages Mistral (local et API) et la configuration durcie.
+2. **Médias NotebookLM.** 45 générations à faire et à relire : voir `docs/GENERATIONS.md`.

@@ -1,7 +1,7 @@
 {
   "$comment": "Source unique du programme. tools/build_course.py génère les pages HTML à partir de ce fichier et de content/sessions/*.md ; tools/nlm_studio.py en tire les médias NotebookLM. Modifier ici, puis : python3 tools/build_course.py",
   "brand": "AI Forge Institute",
-  "course": "Formation OpenClaw 2026 — Ton assistant IA personnel, local et sécurisé",
+  "course": "Formation OpenClaw 2026 — Ton assistant IA personnel, souverain et sécurisé",
   "language": "fr",
   "openclaw_version": "2026.11.3",
   "verified_on": "2026-11-13",
@@ -101,9 +101,8 @@
       "objective": "Faire travailler ton agent tout seul à heures fixes, répartir les rôles entre plusieurs agents et le garder actif en continu.",
       "source": "content/sessions/04-automatisation-multi-agents.md",
       "badge": {
-        "icon": "👑",
-        "label": "Automator Supreme",
-        "final": true
+        "icon": "🤖",
+        "label": "Automator Supreme"
       },
       "media": [
         "video",
@@ -114,22 +113,88 @@
       ]
     },
     {
-      "id": "security",
+      "id": "s5",
       "number": 5,
-      "title": "Sécurité & RGPD France / Europe",
-      "short": "Sécurité & RGPD",
-      "tab": "🔐 Sécurité & RGPD",
-      "objective": "Auditer et durcir ton installation, et vérifier qu'elle reste conforme au RGPD et à l'AI Act.",
-      "source": "content/sessions/05-securite-rgpd.md",
-      "badge": null,
+      "title": "Personnaliser son agent avec Mistral",
+      "short": "Mistral",
+      "tab": "5 · Mistral 🇪🇺",
+      "objective": "Faire tourner ton agent sur des modèles Mistral, en local ou via l'API européenne, et les adapter à tes besoins.",
+      "source": "content/sessions/05-mistral.md",
+      "badge": {
+        "icon": "🇪🇺",
+        "label": "Sovereign Builder"
+      },
       "media": [
         "video",
         "audio",
         "quiz",
         "flashcards",
+        "slides"
+      ]
+    },
+    {
+      "id": "s6",
+      "number": 6,
+      "title": "Sécurité avancée des agents",
+      "short": "Sécurité avancée",
+      "tab": "6 · Sécurité avancée",
+      "objective": "Comprendre comment un agent se fait attaquer, appliquer une défense en profondeur sur OpenClaw et savoir réagir à un incident.",
+      "source": "content/sessions/06-securite-avancee.md",
+      "badge": {
+        "icon": "🔒",
+        "label": "Hardening Expert"
+      },
+      "media": [
+        "video",
+        "audio",
+        "quiz",
+        "flashcards",
+        "slides",
         "infographic"
-      ],
-      "landing_checklists": true
+      ]
+    },
+    {
+      "id": "s7",
+      "number": 7,
+      "title": "RGPD & AI Act : déployer en conformité",
+      "short": "RGPD & AI Act",
+      "tab": "7 · RGPD & AI Act",
+      "objective": "Savoir documenter et justifier un agent IA au regard du RGPD et de l'AI Act, pour toi ou pour une organisation.",
+      "source": "content/sessions/07-rgpd-ai-act.md",
+      "badge": {
+        "icon": "⚖️",
+        "label": "Compliance Officer"
+      },
+      "landing_checklists": true,
+      "media": [
+        "video",
+        "audio",
+        "quiz",
+        "flashcards",
+        "slides",
+        "infographic"
+      ]
+    },
+    {
+      "id": "s8",
+      "number": 8,
+      "title": "Comparatif : choisir le bon agent",
+      "short": "Comparatif",
+      "tab": "8 · Comparatif",
+      "objective": "Situer OpenClaw parmi ses alternatives et savoir choisir, et justifier, l'outil adapté à un besoin.",
+      "source": "content/sessions/08-comparatif.md",
+      "badge": {
+        "icon": "👑",
+        "label": "Agent Architect",
+        "final": true
+      },
+      "media": [
+        "video",
+        "audio",
+        "quiz",
+        "flashcards",
+        "slides"
+      ]
     }
   ],
   "generation": {
@@ -196,6 +261,26 @@
         "icon": "🇫🇷",
         "label": "CNIL — IA & RGPD",
         "url": "https://www.cnil.fr/fr/intelligence-artificielle"
+      },
+      {
+        "icon": "🇪🇺",
+        "label": "Mistral AI — documentation",
+        "url": "https://docs.mistral.ai/"
+      },
+      {
+        "icon": "🧭",
+        "label": "OWASP — Top 10 LLM & agents",
+        "url": "https://genai.owasp.org/"
+      },
+      {
+        "icon": "⚖️",
+        "label": "AI Act — règlement (UE) 2024/1689",
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+      },
+      {
+        "icon": "🛡️",
+        "label": "ANSSI — sécurité de l'IA générative",
+        "url": "https://cyber.gouv.fr/publications/recommandations-de-securite-pour-un-systeme-dia-generative"
       }
     ],
     "glossary": [
@@ -253,6 +338,31 @@
         "term": "RGPD",
         "full": "Règlement général sur la protection des données",
         "def": "Réglementation européenne sur les données personnelles. Un agent local aide à s'y conformer, à condition de vérifier où partent les données (modèle, embeddings, mises à jour)."
+      },
+      {
+        "term": "Open-weight",
+        "full": "Modèle aux poids publiés",
+        "def": "Modèle dont les paramètres sont téléchargeables (par exemple Ministral 3 sous licence Apache 2.0). On peut le faire tourner chez soi, sans envoyer de données à son éditeur."
+      },
+      {
+        "term": "AIPD",
+        "full": "Analyse d'impact relative à la protection des données",
+        "def": "Étude obligatoire (art. 35 RGPD) quand un traitement présente un risque élevé ; en pratique dès que deux critères de la liste de la CNIL sont réunis."
+      },
+      {
+        "term": "AI Act",
+        "full": "Règlement européen sur l'IA",
+        "def": "Règlement (UE) 2024/1689. Il distingue le fournisseur d'un modèle ou système et le déployeur qui l'utilise ; chacun a ses propres obligations."
+      },
+      {
+        "term": "Déployeur",
+        "full": "Utilisateur professionnel d'un système d'IA",
+        "def": "Au sens de l'AI Act, l'organisation qui utilise un système d'IA sous sa propre autorité. Il doit notamment former ses utilisateurs (art. 4) et informer les personnes (art. 50)."
+      },
+      {
+        "term": "Défense en profondeur",
+        "full": "Sécurité par couches",
+        "def": "Empiler plusieurs protections indépendantes (système, réseau, accès, outils, sandbox, skills, secrets) pour qu'une seule défaillance ne suffise pas à compromettre l'agent."
       }
     ]
   }
