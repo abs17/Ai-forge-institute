@@ -248,13 +248,13 @@ body {
   </h2>
 
   <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-up" style="opacity:.6;animation-delay:.3s;line-height:1.7">
-    Workshop intensif avec <strong style="opacity:1;color:#FF6B00">Chinat Yu</strong> (Stanford LDT). Créez vos agents OpenClaw locaux, sécurisés et autonomes. Zéro cloud. Zéro fuite de données.
+    Workshop intensif avec <strong style="opacity:1;color:#FF6B00" data-instructor="name">l'équipe AI Forge Institute</strong>. Construis ton assistant OpenClaw personnel : modèle local, données chez toi, sécurité vérifiée.
   </p>
 
   <!-- BADGES ROW -->
   <div class="flex flex-wrap justify-center gap-3 mb-12 animate-fade-up" style="animation-delay:.4s">
-    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🛡️ RGPD 100% Compliant</span>
-    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--cyan-neon)">⚡ Latence Zéro</span>
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🛡️ Pensé pour le RGPD</span>
+    <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--cyan-neon)">🏠 Modèle 100 % local</span>
     <span class="px-4 py-2 rounded-full text-sm font-bold glass-card" style="color:var(--lobster)">🤖 Auto-Formation 100% Possible</span>
     <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🦞 Open Source</span>
     <span class="px-4 py-2 rounded-full text-sm font-bold glass-card">🎬 Vidéos, podcasts &amp; quiz</span>
@@ -262,10 +262,10 @@ body {
 
   <!-- INSTRUCTOR CARD -->
   <div class="inline-flex items-center gap-4 px-6 py-4 rounded-2xl glass-card animate-fade-up" style="animation-delay:.5s">
-    <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-black" style="background:linear-gradient(135deg,#FF6B00,#FF9A4A)">CY</div>
+    <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-black" style="background:linear-gradient(135deg,#FF6B00,#FF9A4A)" data-instructor="initials">AF</div>
     <div class="text-left">
-      <p class="font-bold text-sm">Chinat Yu</p>
-      <p class="text-xs" style="opacity:.5">Stanford LDT · MLH Top 50 · AI Engineer</p>
+      <p class="font-bold text-sm" data-instructor="name">L'équipe AI Forge Institute</p>
+      <p class="text-xs" style="opacity:.5" data-instructor="title">Formateurs IA &amp; agents autonomes</p>
     </div>
     <div class="w-px h-8 mx-2" style="background:rgba(255,255,255,0.1)"></div>
     <div class="text-xs" style="opacity:.6">4 sessions<br/>Self-paced</div>
@@ -273,15 +273,16 @@ body {
 </section>
 
 <!-- ───────────── 15 MIN SECTION ───────────── -->
+<!-- BUILD:quickstart (généré par tools/build_course.py, ne pas éditer) -->
 <section class="py-20 px-6 border-t" style="border-color:rgba(255,255,255,0.05)">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
     <div class="flex-1">
-      <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:var(--lobster)">Défi Rapide</p>
+      <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:var(--lobster)">Défi rapide</p>
       <h3 class="text-4xl md:text-5xl font-display font-black mb-5 leading-tight">
         Ton premier agent en <span class="text-neon-cyan" style="color:var(--cyan-neon)">15:00</span> chrono
       </h3>
       <p class="mb-8 text-lg" style="opacity:.65;line-height:1.7">
-        Pas de blabla. On installe Ollama, on pull OpenClaw, et ton premier script tourne. Chrono enclenché dès que tu es prêt.
+        Pas de blabla : on installe Ollama et un modèle local, on installe OpenClaw, et ton assistant répond. Chrono enclenché dès que tu es prêt.
       </p>
       <button id="start-timer" class="flex items-center gap-4 px-8 py-4 rounded-xl font-bold text-sm border transition-all duration-300 hover:scale-105" style="background:rgba(0,245,255,0.08);border-color:var(--cyan-neon);color:var(--cyan-neon)" onclick="startTimer(900)">
         <span>▶ Lancer le chrono</span>
@@ -291,30 +292,30 @@ body {
     </div>
     <div class="flex-1 w-full">
       <div class="code-block relative rounded-2xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.12)">
-        <!-- Terminal bar -->
         <div class="flex items-center gap-2 px-5 py-3 border-b" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)">
           <div class="w-3 h-3 rounded-full bg-red-500"></div>
           <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div class="w-3 h-3 rounded-full bg-green-500"></div>
           <span class="text-xs ml-3 font-mono" style="opacity:.4">terminal — bash</span>
-          <!-- Scan line effect -->
           <div style="position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.3),transparent);animation:scanline 3s linear infinite;pointer-events:none"></div>
         </div>
-        <pre class="p-6 font-mono text-sm overflow-x-auto leading-relaxed" style="color:#e0e0e0"><code id="code-install"><span style="color:#6C757D"># 1. Installer Ollama</span>
-<span style="color:#FF6B00">curl</span> <span style="color:#00F5FF">-fsSL</span> https://ollama.com/install.sh | sh
+        <pre class="p-6 font-mono text-sm overflow-x-auto leading-relaxed" style="color:#e0e0e0"><code id="code-install"><span style="color:#6C757D"># 1. Moteur IA local + modèle</span>
+<span style="color:#FF6B00">curl</span> -fsSL https://ollama.com/install.sh | sh
+<span style="color:#FF6B00">ollama</span> pull gemma4
 
-<span style="color:#6C757D"># 2. Pull le modèle</span>
-<span style="color:#FF6B00">ollama</span> pull llama3:8b-instruct-q8_0
+<span style="color:#6C757D"># 2. OpenClaw + assistant (Quick start → Ollama)</span>
+<span style="color:#FF6B00">curl</span> -fsSL https://openclaw.ai/install.sh | bash
 
-<span style="color:#6C757D"># 3. Lancer OpenClaw</span>
-<span style="color:#FF6B00">openclaw</span> init --template autonomous-researcher
-<span style="color:#FF6B00">openclaw</span> run agent.config.json --sandbox<span class="terminal-cursor"></span></code></pre>
+<span style="color:#6C757D"># 3. Vérifier et ouvrir le tableau de bord</span>
+<span style="color:#FF6B00">openclaw</span> status
+<span style="color:#FF6B00">openclaw</span> dashboard<span class="terminal-cursor"></span></code></pre>
         <button onclick="copyCodeBlock('code-install')" class="absolute top-10 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- /BUILD:quickstart -->
 <!-- ───────────── SELF-PACED DASHBOARD ───────────── -->
 <section id="self-paced" class="py-20 px-6">
   <div class="max-w-5xl mx-auto">
@@ -355,6 +356,7 @@ body {
       <p class="mt-3 max-w-xl mx-auto" style="opacity:.55;line-height:1.7">Du zéro au déploiement 24/7 en autonomie totale. Badge à débloquer à chaque session.</p>
     </div>
 
+<!-- BUILD:sessions (généré par tools/build_course.py, ne pas éditer) -->
     <!-- SESSION 1 -->
     <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="1" style="border-color:rgba(255,255,255,0.07)">
       <div class="flex justify-between items-start mb-4">
@@ -364,252 +366,159 @@ body {
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 1 — Fondations &amp; Architecture locale</h4>
-      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Transformer ton ordinateur en forge à IA sans dépendre du Cloud. Confidentialité totale, latence zéro, coût nul.</p>
-
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 1 — Fondations &amp; Architecture</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Comprendre comment fonctionne OpenClaw (Gateway, agent, modèle, canaux) et brancher ton assistant sur un modèle 100 % local.</p>
       <div data-elearning="s1" data-kinds="video,audio"></div>
-      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s1" style="color:var(--lobster);font-weight:700">ouvrir la session 1 dans le cours →</a></p>
-
-      <!-- Code blocks -->
+      <p class="mb-6 text-xs" style="opacity:.55">Pas à pas complet, quiz, flashcards et slides : <a href="index.html#s1" style="color:var(--lobster);font-weight:700">ouvrir la session 1 dans le cours →</a></p>
       <div class="space-y-4 mb-6">
-        <p class="text-sm font-bold" style="opacity:.7">📋 Commandes d'installation :</p>
         <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
-          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 1</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s1"><span style="color:#6C757D"># Installation Ollama — Moteur IA local</span>
-<span style="color:#FF6B00">curl</span> -fsSL https://ollama.com/install.sh | sh
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-landing-s1-0"><span style="color:#6C757D"># Le modèle doit être téléchargé dans Ollama</span>
+<span style="color:#FF6B00">ollama</span> pull gemma4
 
-<span style="color:#6C757D"># Pull du modèle optimisé pour OpenClaw</span>
-<span style="color:#FF6B00">ollama</span> pull llama3:8b-instruct-q8_0
+<span style="color:#6C757D"># Ollama local : n'importe quelle valeur de clé convient</span>
+<span style="color:#FF6B00">export</span> OLLAMA_API_KEY="ollama-local"
 
-<span style="color:#6C757D"># Vérification</span>
-<span style="color:#FF6B00">ollama</span> list
-
-<span style="color:#6C757D"># Test API locale (port 11434)</span>
-<span style="color:#FF6B00">curl</span> http://localhost:11434/api/generate \
-  -d '{"model":"llama3:8b-instruct-q8_0","prompt":"Hello OpenClaw !","stream":false}'</code></pre>
-          <button onclick="copyCodeBlock('code-s1')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+<span style="color:#6C757D"># Choisir le modèle par défaut de l'agent</span>
+<span style="color:#FF6B00">openclaw</span> models list
+<span style="color:#FF6B00">openclaw</span> models set ollama/gemma4</code></pre>
+          <button onclick="copyCodeBlock('code-landing-s1-0')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
         </div>
       </div>
-
-      <!-- Sandbox challenge -->
-      <div class="p-5 rounded-xl mb-6" style="background:rgba(0,245,255,0.05);border:1px solid rgba(0,245,255,0.15)">
-        <p class="text-sm font-bold mb-1" style="color:var(--cyan-neon)">🧪 Défi Sandbox</p>
-        <p class="text-sm" style="opacity:.7">Utilise <code class="font-mono text-xs px-1.5 py-0.5 rounded" style="background:rgba(255,255,255,0.08)">ollama list</code> pour vérifier ton modèle, puis teste l'API locale sur le port 11434 avec curl.</p>
-      </div>
-
-      <!-- Mini-Quiz S1 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Pourquoi utiliser Ollama en local ?</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Sur quel port la Gateway OpenClaw écoute-t-elle par défaut ?</p>
         <div class="space-y-2" id="quiz-s1">
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">A. Confidentialité des données et aucune dépendance externe</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">B. Pour augmenter les coûts de votre infrastructure</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">C. Parce que les API cloud sont plus rapides</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">D. Pour que le modèle se mette à jour automatiquement depuis le cloud</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">A. 11434</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s1')">B. 18789</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">C. 8080</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s1')">D. 443</button>
         </div>
       </div>
-
-      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="1" style="background:rgba(255,107,0,0.15);border:1px solid rgba(255,107,0,0.4);color:#FF6B00" onclick="markSessionDone(1)">
-        Marquer Session 1 comme Terminée ✅
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="1" style="background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.4);color:#FF6B00" onclick="markSessionDone(1)">
+        Marquer la session 1 comme terminée ✅
       </button>
     </div>
-
     <!-- SESSION 2 -->
     <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="2" style="border-color:rgba(255,255,255,0.07)">
       <div class="flex justify-between items-start mb-4">
-        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07">02</span>
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07;color:inherit">02</span>
         <div class="flex items-center gap-3">
-          <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(0,245,255,0.12);color:#00F5FF">🧠 Neural Architect</span>
+          <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(0,245,255,0.15);color:#00F5FF">🧠 Neural Architect</span>
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 2 — Créer ton premier agent</h4>
-      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Passer d'un simple chatbot à un agent qui exécute des scripts. Maîtriser la boucle Perception → Réflexion → Action → Observation.</p>
-
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 2 — Ton premier agent</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Donner une identité à ton agent, le connecter à Telegram et contrôler qui peut lui parler.</p>
       <div data-elearning="s2" data-kinds="video,audio"></div>
-      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s2" style="color:var(--lobster);font-weight:700">ouvrir la session 2 dans le cours →</a></p>
-
+      <p class="mb-6 text-xs" style="opacity:.55">Pas à pas complet, quiz, flashcards et slides : <a href="index.html#s2" style="color:var(--lobster);font-weight:700">ouvrir la session 2 dans le cours →</a></p>
       <div class="space-y-4 mb-6">
-        <p class="text-sm font-bold" style="opacity:.7">📋 Initialisation du projet :</p>
         <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
-          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 2</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s2"><span style="color:#6C757D"># Installer la CLI OpenClaw</span>
-<span style="color:#FF6B00">npm</span> install -g @openclaw/sdk
-
-<span style="color:#6C757D"># Créer ton agent "Lobster-01"</span>
-<span style="color:#FF6B00">openclaw</span> init --template autonomous-researcher
-
-<span style="color:#6C757D"># agent.config.json — Le Prompt "Master"</span></code></pre>
-          <button onclick="copyCodeBlock('code-s2')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
-        </div>
-        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
-          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">json · agent.config.json</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s2b"><span style="color:#00F5FF">{</span>
-  <span style="color:#86EFAC">"role"</span>: <span style="color:#FCD34D">"Agent de recherche autonome"</span>,
-  <span style="color:#86EFAC">"goal"</span>: <span style="color:#FCD34D">"Extraire et synthétiser les news IA toutes les 6h"</span>,
-  <span style="color:#86EFAC">"tools"</span>: [<span style="color:#FCD34D">"web-search"</span>, <span style="color:#FCD34D">"file-writer"</span>],
-  <span style="color:#86EFAC">"constraints"</span>: <span style="color:#FCD34D">"Strictement local. Format Markdown uniquement."</span>
-<span style="color:#00F5FF">}</span></code></pre>
-          <button onclick="copyCodeBlock('code-s2b')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-landing-s2-0"><span style="color:#FF6B00">openclaw</span> channels add --channel telegram --token &lt;token-du-bot&gt;
+<span style="color:#FF6B00">openclaw</span> channels status --probe</code></pre>
+          <button onclick="copyCodeBlock('code-landing-s2-0')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
         </div>
       </div>
-
-      <!-- Mini-Quiz S2 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — La boucle OpenClaw</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Un inconnu écrit à ton bot. Avec <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">dmPolicy: "pairing"</code>, que se passe-t-il ?</p>
         <div class="space-y-2" id="quiz-s2">
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s2')">A. Perception → Réflexion → Action → Observation</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">B. Input → Output → Stop</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">C. Load → Run → Crash → Reboot</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">A. L'agent lui répond normalement</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s2')">B. Il reçoit un code, et rien ne passe tant que tu ne l'as pas approuvé</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">C. Son message est transféré à OpenAI</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s2')">D. Le bot se désactive</button>
         </div>
       </div>
-
-      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="2" style="background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.3);color:#00F5FF" onclick="markSessionDone(2)">
-        Marquer Session 2 comme Terminée ✅
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="2" style="background:rgba(0,245,255,0.12);border:1px solid rgba(0,245,255,0.4);color:#00F5FF" onclick="markSessionDone(2)">
+        Marquer la session 2 comme terminée ✅
       </button>
     </div>
-
     <!-- SESSION 3 -->
     <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="3" style="border-color:rgba(255,255,255,0.07)">
       <div class="flex justify-between items-start mb-4">
-        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07">03</span>
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07;color:inherit">03</span>
         <div class="flex items-center gap-3">
           <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(239,68,68,0.15);color:#FCA5A5">🔐 Security Specialist</span>
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 3 — RAG local, Sandbox &amp; Notifications</h4>
-      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Connecter l'IA à tes documents privés en toute sécurité. Le RAG local : l'agent lit tes PDF, mais rien ne sort de ton réseau.</p>
-
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 3 — Skills, Mémoire &amp; Sandbox</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Étendre ton agent avec des skills, lui donner une mémoire qui reste chez toi et isoler ses actions dans une sandbox Docker.</p>
       <div data-elearning="s3" data-kinds="video,audio"></div>
-      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s3" style="color:var(--lobster);font-weight:700">ouvrir la session 3 dans le cours →</a></p>
-
+      <p class="mb-6 text-xs" style="opacity:.55">Pas à pas complet, quiz, flashcards et slides : <a href="index.html#s3" style="color:var(--lobster);font-weight:700">ouvrir la session 3 dans le cours →</a></p>
       <div class="space-y-4 mb-6">
-        <p class="text-sm font-bold" style="opacity:.7">📋 Sandbox Docker &amp; RAG :</p>
         <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
-          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 3</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s3"><span style="color:#6C757D"># Lancer l'environnement de test isolé</span>
-<span style="color:#FF6B00">openclaw</span> sandbox up --isolated
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-landing-s3-0"><span style="color:#6C757D"># Skills disponibles et utilisables</span>
+<span style="color:#FF6B00">openclaw</span> skills list --eligible
 
-<span style="color:#6C757D"># Toujours utiliser --audit pour surveiller l'IA</span>
-<span style="color:#FF6B00">openclaw</span> run --audit</code></pre>
-          <button onclick="copyCodeBlock('code-s3')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
-        </div>
-        <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
-          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">javascript · RAG local</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s3b"><span style="color:#86EFAC">import</span> { LocalMemory } <span style="color:#86EFAC">from</span> <span style="color:#FCD34D">'@openclaw/sdk'</span>;
+<span style="color:#6C757D"># Chercher sur ClawHub</span>
+<span style="color:#FF6B00">openclaw</span> skills search "calendar"
 
-<span style="color:#6C757D">// Connecter l'agent à tes docs privés</span>
-<span style="color:#86EFAC">const</span> memory = <span style="color:#86EFAC">new</span> LocalMemory(<span style="color:#FCD34D">'./my-private-docs'</span>);
-<span style="color:#86EFAC">await</span> agent.attach(memory);
-<span style="color:#6C757D">// L'agent lit tes PDF, rien ne quitte ton réseau.</span></code></pre>
-          <button onclick="copyCodeBlock('code-s3b')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+<span style="color:#6C757D"># Vérifier puis installer un skill</span>
+<span style="color:#FF6B00">openclaw</span> skills verify @auteur/nom-du-skill --card
+<span style="color:#FF6B00">openclaw</span> skills install @auteur/nom-du-skill</code></pre>
+          <button onclick="copyCodeBlock('code-landing-s3-0')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
         </div>
       </div>
-
-      <div class="p-5 rounded-xl mb-6" style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2)">
-        <p class="text-sm font-bold mb-1" style="color:#FCA5A5">💡 Le Tip de Chinat Yu</p>
-        <p class="text-sm" style="opacity:.7">Toujours utiliser le flag <code class="font-mono text-xs px-1.5 py-0.5 rounded" style="background:rgba(255,255,255,0.1)">--audit</code> pour voir exactement quelles lignes de code l'IA tente d'exécuter dans sa sandbox. Transparent &amp; auditables.</p>
-      </div>
-
-      <!-- Mini-Quiz S3 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Que permet le RAG local ?</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Où partent les extraits de mémoire si tu ne règles pas <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">memory.search.provider</code> ?</p>
         <div class="space-y-2" id="quiz-s3">
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">A. Le RAG envoie tous tes documents au cloud OpenAI</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s3')">B. Le RAG local permet à l'IA d'interroger tes docs sans quitter ton réseau</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">C. RAG = Random Access Generator, aucun rapport avec la mémoire</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">D. Le RAG remplace la sandbox Docker</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">A. Nulle part, tout reste local</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s3')">B. Vers l'API d'OpenAI, qui calcule les embeddings par défaut</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">C. Vers ClawHub</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s3')">D. Vers Ollama</button>
         </div>
       </div>
-
-      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="3" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);color:#FCA5A5" onclick="markSessionDone(3)">
-        Marquer Session 3 comme Terminée ✅
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="3" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);color:#FCA5A5" onclick="markSessionDone(3)">
+        Marquer la session 3 comme terminée ✅
       </button>
     </div>
-
     <!-- SESSION 4 -->
     <div class="session-card glass-card rounded-2xl p-8 mb-6" data-session="4" style="border-color:rgba(255,255,255,0.07)">
       <div class="flex justify-between items-start mb-4">
-        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07">04</span>
+        <span class="session-num font-display font-black text-8xl leading-none" style="opacity:.07;color:inherit">04</span>
         <div class="flex items-center gap-3">
           <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(234,179,8,0.15);color:#FCD34D">👑 Automator Supreme</span>
           <div class="badge-completed hidden px-3 py-1 rounded-full text-xs font-bold" style="background:rgba(34,197,94,0.2);color:#86EFAC">TERMINÉ ✅</div>
         </div>
       </div>
-      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 4 — Outils, Multi-Agents &amp; Déploiement 24/7</h4>
-      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Lâcher ton agent dans la nature digitale. PM2 ou Systemd pour que l'agent survive aux redémarrages et travaille même quand tu dors.</p>
-
+      <h4 class="text-2xl md:text-3xl font-display font-black mb-2">Session 4 — Automatisation, Multi-agents &amp; 24/7</h4>
+      <p class="mb-6 text-sm" style="opacity:.55;line-height:1.7">Objectif : Faire travailler ton agent tout seul à heures fixes, répartir les rôles entre plusieurs agents et le garder actif en continu.</p>
       <div data-elearning="s4" data-kinds="video,audio"></div>
-      <p class="mb-6 text-xs" style="opacity:.55">Quiz complet, flashcards et slides : <a href="index.html#s4" style="color:var(--lobster);font-weight:700">ouvrir la session 4 dans le cours →</a></p>
-
+      <p class="mb-6 text-xs" style="opacity:.55">Pas à pas complet, quiz, flashcards et slides : <a href="index.html#s4" style="color:var(--lobster);font-weight:700">ouvrir la session 4 dans le cours →</a></p>
       <div class="space-y-4 mb-6">
-        <p class="text-sm font-bold" style="opacity:.7">📋 Déploiement PM2 &amp; Daemon :</p>
         <div class="code-block relative rounded-xl border overflow-hidden" style="background:#080808;border-color:rgba(255,255,255,0.1)">
-          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash · Session 4 · PM2</div>
-          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-s4"><span style="color:#6C757D"># Garder l'agent actif 24/7 avec PM2</span>
-<span style="color:#FF6B00">pm2</span> start <span style="color:#FCD34D">"openclaw run agent.config.json --audit"</span> --name my-247-agent
+          <div class="flex items-center gap-2 px-4 py-2 border-b text-xs font-mono" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);opacity:.6">bash</div>
+          <pre class="p-5 font-mono text-sm overflow-x-auto leading-loose" style="color:#e0e0e0"><code id="code-landing-s4-0"><span style="color:#6C757D"># Tous les jours à 7 h</span>
+<span style="color:#FF6B00">openclaw</span> automations create "0 7 * * *" \
+  "Prépare ma revue de presse IA avec le skill revue-presse." \
+  --name "Brief du matin" \
+  --tz "Europe/Paris"
 
-<span style="color:#6C757D"># Sauvegarder pour survie au reboot</span>
-<span style="color:#FF6B00">pm2</span> save
-<span style="color:#FF6B00">pm2</span> startup
+<span style="color:#6C757D"># Toutes les heures</span>
+<span style="color:#FF6B00">openclaw</span> automations create "every 1h" \
+  "Vérifie l'espace disque et préviens-moi s'il reste moins de 10 %." \
+  --name "Surveillance disque"
 
-<span style="color:#6C757D"># Monitoring en temps réel</span>
-<span style="color:#FF6B00">pm2</span> monit</code></pre>
-          <button onclick="copyCodeBlock('code-s4')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
+<span style="color:#FF6B00">openclaw</span> automations list
+<span style="color:#FF6B00">openclaw</span> automations run &lt;job-id&gt;</code></pre>
+          <button onclick="copyCodeBlock('code-landing-s4-0')" class="absolute top-9 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-105" style="background:rgba(255,107,0,0.2);color:#FF6B00;border:1px solid rgba(255,107,0,0.3)">🦞 Copier</button>
         </div>
       </div>
-
-      <!-- Monitoring table -->
-      <div class="rounded-xl overflow-hidden border mb-6" style="border-color:rgba(255,255,255,0.08)">
-        <div class="px-5 py-3 text-xs font-bold uppercase tracking-widest border-b" style="background:rgba(255,255,255,0.04);opacity:.6;border-color:rgba(255,255,255,0.07)">📊 Tableau de Bord de Monitoring</div>
-        <table class="monitor-table">
-          <thead>
-            <tr>
-              <th>Métrique</th>
-              <th>Seuil Alerte</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="font-mono text-sm" style="color:#FF6B00">CPU Usage</td>
-              <td>&gt; 80%</td>
-              <td style="color:#86EFAC">Pause automatique</td>
-            </tr>
-            <tr>
-              <td class="font-mono text-sm" style="color:#FCD34D">Token Cost</td>
-              <td>0.00€</td>
-              <td style="color:#86EFAC">Toujours gratuit en local 🎉</td>
-            </tr>
-            <tr>
-              <td class="font-mono text-sm" style="color:#00F5FF">Succès Tâches</td>
-              <td>&lt; 95%</td>
-              <td style="color:#86EFAC">Re-prompting automatique</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="p-5 rounded-xl mb-6" style="background:rgba(234,179,8,0.07);border:1px solid rgba(234,179,8,0.2)">
-        <p class="text-sm font-bold mb-1" style="color:#FCD34D">🏆 Exercice Final</p>
-        <p class="text-sm" style="opacity:.7">Configure un "Hook" pour que ton agent t'envoie un résumé de son travail sur Signal/Telegram via un serveur local. Ton agent travaille, tu reçois les résultats.</p>
-      </div>
-
-      <!-- Mini-Quiz S4 -->
       <div class="p-6 rounded-xl border" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)">
-        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — À quoi sert PM2 ?</p>
+        <p class="font-bold mb-4 text-sm">🧠 Mini-quiz — Quelle commande installe la Gateway comme service qui redémarre avec la machine ?</p>
         <div class="space-y-2" id="quiz-s4">
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s4')">A. PM2 maintient ton agent actif après un redémarrage système</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">B. Il faut un abonnement cloud pour faire tourner un agent 24/7</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">C. PM2 est uniquement pour les sites web, pas pour les agents IA</button>
-          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">D. PM2 déplace l'agent sur un serveur cloud</button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">A. <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">pm2 start openclaw</code></button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="true" onclick="handleQuiz(this,'quiz-s4')">B. <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">openclaw gateway install</code></button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">C. <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">openclaw run --daemon</code></button>
+          <button class="quiz-opt w-full text-left p-4 rounded-xl text-sm border" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.09)" data-correct="false" onclick="handleQuiz(this,'quiz-s4')">D. <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">docker run openclaw</code></button>
         </div>
       </div>
-
-      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="4" style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.35);color:#FCD34D" onclick="markSessionDone(4)">
-        Marquer Session 4 comme Terminée — Obtenir le Badge 👑
+      <button class="session-done-btn mt-6 w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-[1.02]" data-session="4" style="background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.4);color:#FCD34D" onclick="markSessionDone(4)">
+        Marquer la session 4 comme terminée — obtenir le badge final 👑
       </button>
     </div>
+<!-- /BUILD:sessions -->
   </div>
 </section>
 
@@ -619,70 +528,77 @@ body {
     <div class="text-center mb-12">
       <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:#86EFAC">Conformité</p>
       <h3 class="text-4xl md:text-5xl font-display font-black">Sécurité &amp; RGPD</h3>
-      <p class="mt-3 max-w-xl mx-auto" style="opacity:.55;line-height:1.7">Notre philosophie : Zéro cloud étranger. Zéro cookie tiers. Les données ne quittent jamais le sol européen.</p>
+      <p class="mt-3 max-w-xl mx-auto" style="opacity:.55;line-height:1.7">Notre philosophie : un modèle local, une Gateway privée, des données en Europe. Et des réglages vérifiés plutôt que des promesses.</p>
     </div>
 
+<!-- BUILD:security (généré par tools/build_course.py, ne pas éditer) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- France -->
       <div class="glass-card rounded-2xl p-7">
         <div class="flex items-center gap-3 mb-6">
           <span class="text-3xl">🇫🇷</span>
           <h4 class="font-display font-black text-xl">Checklist France</h4>
         </div>
-        <ul class="space-y-3" id="rgpd-fr">
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Hébergement sur serveur physique en France (ou UE)</span>
+            <span>Gateway sur <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">loopback</code> avec authentification par token</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Aucune donnée personnelle transmise à des tiers</span>
+            <span><code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">openclaw security audit --deep</code> passé sans alerte critique</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>localStorage uniquement — zéro cookies tiers</span>
+            <span>Recherche mémoire sur Ollama : aucune donnée envoyée à OpenAI</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Recommandations CNIL sur l'IA appliquées</span>
+            <span>Données hébergées en France ou dans l'UE (machine perso ou VPS européen)</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Registre des traitements à jour (Art. 30 RGPD)</span>
+            <span>Registre des traitements à jour (art. 30 RGPD) si l'agent traite des données de tiers</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>Recommandations CNIL sur l'IA appliquées, DPO désigné si le traitement l'exige</span>
           </li>
         </ul>
       </div>
-
-      <!-- Europe -->
       <div class="glass-card rounded-2xl p-7">
         <div class="flex items-center gap-3 mb-6">
           <span class="text-3xl">🇪🇺</span>
           <h4 class="font-display font-black text-xl">Checklist Europe</h4>
         </div>
-        <ul class="space-y-3" id="rgpd-eu">
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Pas de transfert hors UE (Schrems II compliant)</span>
+            <span>Aucun transfert hors UE : modèle local, pas de modèle cloud en secours</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>LLM open-weight (Llama 3) — pas de dépendance à une API propriétaire</span>
+            <span>Messages privés en <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">pairing</code> ou <code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">allowlist</code>, mention obligatoire dans les groupes</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Sandbox Docker — isolation complète des exécutions</span>
+            <span>Outils restreints et sandbox active pour les sessions non principales</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>Droit à l'effacement : suppression locale instantanée</span>
+            <span>Skills tiers vérifiés avant installation</span>
           </li>
-          <li class="rgpd-item flex items-start gap-3 text-sm cursor-pointer p-3 rounded-xl transition-all hover:scale-[1.01]" style="background:rgba(255,255,255,0.04)" onclick="toggleRGPD(this)">
+          <li class="flex items-start gap-3 text-sm">
             <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
-            <span>AI Act (UE 2024) — Audit trail complet via --audit flag</span>
+            <span>Droit à l'effacement : procédure de suppression des sessions et de la mémoire connue</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors" style="border-color:rgba(134,239,172,0.5)"></span>
+            <span>AI Act : journaux conservés (<code class="font-mono text-xs px-1 rounded" style="background:rgba(255,255,255,0.1)">openclaw logs</code>) pour tracer les actions de l'agent</span>
           </li>
         </ul>
       </div>
     </div>
+<!-- /BUILD:security -->
   </div>
 </section>
 
@@ -692,8 +608,8 @@ body {
     <span class="text-2xl animate-float inline-block">🦞</span>
     <span class="font-display font-black text-lg">AI Forge <span style="color:var(--lobster)">Institute</span></span>
   </div>
-  <p class="text-sm" style="opacity:.35">© 2026 AI Forge Institute · Formation OpenClaw · 100% Self-Paced · 100% Local · 100% RGPD</p>
-  <p class="text-xs mt-2" style="opacity:.2">Fait avec 🦞 par Chinat Yu · Stanford LDT</p>
+  <p class="text-sm" style="opacity:.35">© 2026 AI Forge Institute · Formation OpenClaw · Vérifiée sur OpenClaw 2026.11.3</p>
+  <p class="text-xs mt-2" style="opacity:.2">Fait avec 🦞 par <span data-instructor="name">l'équipe AI Forge Institute</span></p>
 </footer>
 
 </main>
@@ -717,21 +633,21 @@ const state = {
   timerActive: false,
   timerInterval: null,
   sessions: [
-    { id: 1, title: 'Fondations & Architecture locale' },
-    { id: 2, title: 'Créer ton premier agent' },
-    { id: 3, title: 'RAG local, Sandbox & Notifications' },
-    { id: 4, title: 'Outils, Multi-Agents & Déploiement 24/7' }
+    { id: 1, title: 'Fondations & Architecture' },
+    { id: 2, title: 'Ton premier agent' },
+    { id: 3, title: 'Skills, Mémoire & Sandbox' },
+    { id: 4, title: 'Automatisation, Multi-agents & 24/7' }
   ]
 };
 // Jalons du dashboard. `auto` : validé automatiquement à partir des sessions terminées.
 const MILESTONES = [
-  { id: 'check-0', label: 'Ollama installé', emoji: '⚙️' },
-  { id: 'check-1', label: 'Modèle Llama 3 prêt', emoji: '🦙' },
+  { id: 'check-0', label: 'OpenClaw installé', emoji: '⚙️' },
+  { id: 'check-1', label: 'Modèle local prêt', emoji: '🦙' },
   { id: 'check-2', label: 'Session 1 terminée', emoji: '🎓', auto: () => state.sessionsDone.includes('s1') },
-  { id: 'check-3', label: 'Agent Lobster-01 lancé', emoji: '🤖' },
-  { id: 'check-4', label: 'Sandbox Docker', emoji: '🐳' },
-  { id: 'check-5', label: 'RAG local indexé', emoji: '📚' },
-  { id: 'check-6', label: 'PM2 configuré', emoji: '⚡' },
+  { id: 'check-3', label: 'Bot Telegram connecté', emoji: '🤖' },
+  { id: 'check-4', label: 'Sandbox Docker active', emoji: '🐳' },
+  { id: 'check-5', label: 'Mémoire 100 % locale', emoji: '📚' },
+  { id: 'check-6', label: 'Gateway en service 24/7', emoji: '⚡' },
   { id: 'check-7', label: 'Toutes les sessions ✅', emoji: '👑', auto: () => ['s1','s2','s3','s4'].every(id => state.sessionsDone.includes(id)) }
 ];
 const TOTAL_STEPS = MILESTONES.length;

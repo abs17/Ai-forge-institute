@@ -1,60 +1,104 @@
-# Session 1 — Fondations & Architecture locale
+# Session 1 — Fondations & Architecture
 
 *AI Forge Institute · Formation OpenClaw 2026 · Badge : 🛡️ Guardian of Privacy*
 
-**Objectif :** transformer ton ordinateur en forge à IA sans dépendre du cloud, et comprendre comment Ollama, OpenClaw et ton système s'articulent.
+**Objectif :** comprendre comment fonctionne OpenClaw et brancher ton assistant sur un modèle 100 % local.
 
-## Pourquoi un LLM local ?
+## OpenClaw en une phrase
 
-- **Confidentialité** : les données ne quittent pas ta machine, ce qui simplifie la conformité RGPD.
-- **Aucune dépendance externe** : pas de clé API, pas de panne fournisseur.
-- **Coût d'usage nul en tokens** : tu ne paies que ton matériel et ton électricité.
-- **Latence maîtrisée** : pas d'aller-retour réseau vers un fournisseur.
+OpenClaw est un assistant IA personnel open source qui tourne **sur ta machine**. Tu lui écris depuis ta messagerie (Telegram, WhatsApp, Signal, Discord…), et il répond, se souvient et agit : il lit et écrit des fichiers, lance des commandes, navigue sur le web, programme des tâches.
 
-## L'architecture en 3 couches
+## Les briques de l'architecture
 
-1. **Couche LLM** — Ollama + Llama 3 : l'inférence, 100 % locale.
-2. **Couche agent** — OpenClaw : la boucle Perception → Réflexion → Action → Observation, les outils, la mémoire.
-3. **Couche sécurité** — sandbox Docker, audit trail (`--audit`), règles RGPD.
+| Brique | Rôle | Où ? |
+|---|---|---|
+| **Gateway** | Le serveur central : il reçoit les messages des canaux, les route vers l'agent et garde les sessions | `127.0.0.1:18789` |
+| **Agent** | L'assistant lui-même (par défaut `main`), avec sa personnalité, ses règles et sa mémoire | `~/.openclaw/workspace` |
+| **Modèle** | Le « cerveau » : un LLM local (Ollama) ou dans le cloud | ex. `ollama/gemma4` |
+| **Canaux** | Les messageries par lesquelles tu lui parles | Telegram, WhatsApp, Signal… |
+| **Outils & skills** | Ce que l'agent sait faire : fichiers, commandes, web, automatisations | Outils intégrés + `skills/` |
 
-Chaque couche est interchangeable et auditable : tu peux remplacer Llama 3 par Mistral, ou Docker par systemd, sans toucher au reste.
+La configuration est dans `~/.openclaw/openclaw.json` (format JSON5). La Gateway la recharge automatiquement quand tu la modifies.
 
 ## La boucle de l'agent
 
-- **Perception** : l'agent reçoit une tâche (texte, fichier, appel d'API) et en extrait l'intention.
-- **Réflexion** : le LLM analyse la tâche, choisit parmi les outils autorisés et planifie les étapes.
-- **Action** : l'agent exécute (appel d'outil, écriture de fichier, requête HTTP), toujours dans la sandbox.
-- **Observation** : il lit le résultat, le réinjecte dans son contexte et décide de continuer ou de s'arrêter.
+- **Perception** : un message arrive par un canal ; la Gateway l'associe à une session.
+- **Réflexion** : le modèle lit le message avec le contexte de l'agent (ses fichiers d'instructions, sa mémoire, l'historique) et choisit la suite.
+- **Action** : il appelle un outil — lire un fichier, lancer une commande, chercher sur le web.
+- **Observation** : le résultat de l'outil revient au modèle, qui continue ou répond.
 
-**Chatbot ou agent ?** Un chatbot répond à un message. Un agent peut exécuter des outils et boucler sur plusieurs étapes de façon autonome.
+**Chatbot ou agent ?** Un chatbot répond à un message. Un agent enchaîne plusieurs actions avec des outils jusqu'à atteindre un objectif.
 
-## Maîtriser l'API brute d'Ollama
+## Brancher le modèle local
 
-Avant l'agent, teste l'API qu'OpenClaw utilise en interne :
+L'assistant de configuration l'a normalement fait. Pour le régler à la main :
 
-```bash
-# Chat simple (non-streaming)
-curl http://localhost:11434/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "llama3:8b-instruct-q8_0",
-    "messages": [
-      {"role":"system","content":"Tu es un assistant expert en IA locale."},
-      {"role":"user","content":"Explique le RAG en 2 phrases."}
-    ],
-    "stream": false
-  }'
+```bash landing
+# Le modèle doit être téléchargé dans Ollama
+ollama pull gemma4
 
-# Liste des modèles disponibles
-curl http://localhost:11434/api/tags
+# Ollama local : n'importe quelle valeur de clé convient
+export OLLAMA_API_KEY="ollama-local"
+
+# Choisir le modèle par défaut de l'agent
+openclaw models list
+openclaw models set ollama/gemma4
 ```
 
-## Défi sandbox
+Ce que cela écrit dans `~/.openclaw/openclaw.json` :
 
-Vérifie ton modèle avec `ollama list`, puis interroge l'API locale sur le port 11434 avec curl.
+```json5 openclaw.json
+{
+  agents: {
+    defaults: {
+      model: { primary: "ollama/gemma4" },
+    },
+  },
+}
+```
+
+> ⚠️ **Pas de /v1** — Si tu indiques une adresse Ollama à la main, utilise l'API native `http://127.0.0.1:11434`, jamais l'URL compatible OpenAI `/v1` : elle casse les appels d'outils.
+
+## Premier échange
+
+```bash
+# Envoyer un message à l'agent depuis le terminal
+openclaw agent --agent main --message "Présente-toi en deux phrases."
+
+# Ou discuter dans le terminal
+openclaw
+```
+
+## Local ou cloud : être lucide
+
+Un modèle local garde tes conversations chez toi et ne coûte rien à l'usage. La documentation d'OpenClaw rappelle aussi ses limites : les petits modèles suivent moins bien les instructions et résistent moins bien à l'injection de prompt. Avec un modèle local, on garde donc des outils limités et une sandbox (sessions 3 et Sécurité). Tu peux définir un modèle cloud en secours avec `agents.defaults.model.fallbacks`, en sachant que les messages concernés partiront alors chez ce fournisseur.
 
 ## Checklist
 
-- Je sais décrire les 3 couches de l'architecture
+- Je sais décrire le rôle de la Gateway, de l'agent, du modèle et des canaux
 - Je sais expliquer la boucle Perception → Réflexion → Action → Observation
-- J'ai testé l'API Ollama avec curl et reçu une réponse JSON valide
+- Mon agent utilise `ollama/gemma4` (vérifié avec `openclaw models list`)
+- J'ai reçu une réponse avec `openclaw agent --message`
+
+## Quiz
+
+**Sur quel port la Gateway OpenClaw écoute-t-elle par défaut ?**
+- [ ] 11434
+- [x] 18789
+- [ ] 8080
+- [ ] 443
+> 18789 est le port de la Gateway ; 11434 est celui d'Ollama.
+
+**Quelle différence entre un chatbot et un agent OpenClaw ?**
+- [ ] Aucune, c'est du marketing
+- [x] L'agent enchaîne plusieurs actions avec des outils pour atteindre un objectif
+- [ ] Le chatbot est plus intelligent parce qu'il est dans le cloud
+- [ ] L'agent ne fonctionne qu'avec un modèle payant
+> L'agent boucle : il agit avec des outils, observe le résultat et décide de la suite.
+
+**Pourquoi ne pas utiliser l'URL `/v1` d'Ollama avec OpenClaw ?**
+- [ ] Elle est plus lente
+- [x] Elle casse les appels d'outils
+- [ ] Elle envoie les données dans le cloud
+- [ ] Elle n'existe plus
+> OpenClaw utilise l'API native d'Ollama ; via `/v1`, le modèle peut renvoyer les appels d'outils sous forme de texte brut.

@@ -1,79 +1,121 @@
-# Session 2 — Créer ton premier agent
+# Session 2 — Ton premier agent
 
 *AI Forge Institute · Formation OpenClaw 2026 · Badge : 🧠 Neural Architect*
 
-**Objectif :** passer d'un simple chatbot à un agent qui exécute des tâches. Tu vas initialiser l'agent **Lobster-01**, lui donner des outils et le regarder exécuter sa première tâche autonome.
+**Objectif :** donner une identité à ton agent, le connecter à Telegram et contrôler qui peut lui parler.
 
-## Initialiser le projet
+## Le workspace : la mémoire et le caractère de l'agent
 
-Le template `autonomous-researcher` est le point de départ idéal.
+Chaque agent a un dossier de travail, par défaut `~/.openclaw/workspace`. Les fichiers Markdown qu'il contient sont lus à chaque session :
+
+| Fichier | Contenu |
+|---|---|
+| `AGENTS.md` | Les règles de travail et les consignes, y compris la section `## Tools` sur l'usage des outils |
+| `SOUL.md` | La personnalité : ton, valeurs, limites |
+| `USER.md` | Ce que l'agent sait de toi (facultatif) |
+| `IDENTITY.md` | Son nom et sa présentation |
+| `MEMORY.md` et `memory/` | Sa mémoire à long terme et ses notes du jour (session 3) |
+
+> ℹ️ **Changements récents** — `TOOLS.md` n'est plus utilisé : son contenu va dans `AGENTS.md`. `HEARTBEAT.md` n'est plus lu non plus. `openclaw doctor --fix` migre automatiquement un ancien workspace.
+
+## Personnaliser Lobster-01
+
+Ouvre `~/.openclaw/workspace/SOUL.md` et remplace son contenu :
+
+```markdown SOUL.md
+# Lobster-01
+
+Tu es Lobster-01, l'assistant de veille IA de ton utilisateur.
+- Tu réponds en français, de façon concise et concrète.
+- Tu cites toujours tes sources quand tu résumes une information.
+- Tu demandes confirmation avant toute action irréversible (suppression, envoi, achat).
+```
+
+Puis ajoute tes règles dans `AGENTS.md` :
+
+```markdown AGENTS.md
+## Veille
+- Chaque résumé tient en 5 points maximum.
+- Enregistre les sujets suivis dans memory/.
+
+## Tools
+- N'utilise pas exec pour supprimer des fichiers.
+```
+
+Pas besoin de redémarrer : ces fichiers sont relus à chaque nouvelle session. Tape `/new` dans la conversation pour en ouvrir une.
+
+## Connecter Telegram
+
+1. Dans Telegram, ouvre **@BotFather**, envoie `/newbot` et copie le token du bot.
+2. Déclare le canal et vérifie la connexion :
+
+```bash landing
+openclaw channels add --channel telegram --token <token-du-bot>
+openclaw channels status --probe
+```
+
+3. Envoie un premier message privé à ton bot. Il te répond par un **code d'appairage**.
+4. Approuve ce code depuis ton terminal :
 
 ```bash
-mkdir lobster-01 && cd lobster-01
-openclaw init --template autonomous-researcher
+openclaw pairing list telegram
+openclaw pairing approve telegram <CODE>
 ```
 
-Structure créée :
+Les codes expirent au bout d'une heure. Une fois approuvé, tu peux discuter avec ton agent depuis ton téléphone.
 
-```
-lobster-01/
-├── agent.config.json   ← configuration de l'agent
-├── tools/              ← tes outils custom
-├── memory/             ← stockage local pour le RAG
-└── logs/               ← audit trail complet
-```
+## Qui a le droit de parler à ton agent ?
 
-## Configurer agent.config.json
+Le réglage `dmPolicy` décide qui peut écrire à l'agent en privé :
 
-Ce fichier est le cerveau de l'agent.
+| Valeur | Effet |
+|---|---|
+| `pairing` (défaut) | Un inconnu reçoit un code ; rien ne passe tant que tu ne l'as pas approuvé |
+| `allowlist` | Seuls les identifiants listés dans `allowFrom` sont acceptés |
+| `open` | Tout le monde (exige `allowFrom: ["*"]`) — à éviter |
+| `disabled` | Messages privés désactivés |
 
-```json
+```json5 openclaw.json
 {
-  "name": "Lobster-01",
-  "version": "1.0.0",
-  "model": "llama3:8b-instruct-q8_0",
-  "role": "Agent de recherche autonome spécialisé IA",
-  "goal": "Extraire, synthétiser et livrer les news IA toutes les 6h",
-  "tools": ["web-search", "file-writer", "markdown-formatter"],
-  "constraints": "Strictement local. Jamais de clé API externe. Format Markdown uniquement.",
-  "memory": { "type": "local", "path": "./memory" },
-  "sandbox": { "enabled": true, "driver": "docker" },
-  "maxIterations": 10,
-  "timeout": 120000
+  channels: {
+    telegram: {
+      enabled: true,
+      dmPolicy: "pairing",
+      groups: { "*": { requireMention: true } },
+    },
+  },
 }
 ```
 
-- `model` : le nom exact du modèle Ollama.
-- `tools` : la liste blanche des outils. L'agent ne peut pas en utiliser d'autres.
-- `sandbox.driver` : `docker` isole l'exécution. `none` la désactive (déconseillé).
-- `maxIterations` : borne la boucle et évite les boucles infinies. Toujours la définir.
-- `timeout` : durée maximale d'une tâche, en millisecondes.
+Dans un groupe, `requireMention: true` oblige à mentionner le bot pour qu'il réagisse.
 
-## Lancer et tester l'agent
+## Suivre ce que fait l'agent
 
 ```bash
-# Mode développement (logs verbeux)
-openclaw run agent.config.json --verbose
-
-# Mode production avec audit trail
-openclaw run agent.config.json --audit
-
-# Avec une tâche précise
-openclaw run agent.config.json --task "Résume les 5 dernières avancées en LLM"
-
-# En sandbox isolée
-openclaw run agent.config.json --sandbox
-
-# Suivre les logs
-tail -f logs/agent.log
+openclaw status
+openclaw logs --follow
 ```
-
-**Bonne pratique : démarre toujours avec `--audit`.** Le journal trace chaque décision de l'agent (outil, entrée, sortie). Il sert au débogage et à la conformité.
 
 ## Checklist
 
-- Projet initialisé avec `openclaw init`
-- `agent.config.json` personnalisé avec mon rôle et mon objectif
-- Agent lancé en `--verbose` sans erreur
-- Logs lus et boucle d'exécution comprise
-- Test en sandbox Docker réussi (`--sandbox`)
+- J'ai personnalisé `SOUL.md` et `AGENTS.md`
+- Mon bot Telegram est créé et `openclaw channels status --probe` est au vert
+- J'ai approuvé mon code d'appairage
+- J'ai échangé avec mon agent depuis Telegram
+- J'ai suivi une réponse dans `openclaw logs --follow`
+
+## Quiz
+
+**Un inconnu écrit à ton bot. Avec `dmPolicy: "pairing"`, que se passe-t-il ?**
+- [ ] L'agent lui répond normalement
+- [x] Il reçoit un code, et rien ne passe tant que tu ne l'as pas approuvé
+- [ ] Son message est transféré à OpenAI
+- [ ] Le bot se désactive
+> C'est le réglage par défaut : chaque nouvel interlocuteur doit être approuvé avec `openclaw pairing approve`.
+
+**Quel fichier du workspace définit la personnalité de l'agent ?**
+- [ ] `agent.config.json`
+- [ ] `TOOLS.md`
+- [x] `SOUL.md`
+- [ ] `openclaw.json`
+> `SOUL.md` porte la personnalité ; `AGENTS.md` les règles de travail ; `openclaw.json` la configuration technique.

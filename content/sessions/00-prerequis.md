@@ -1,78 +1,112 @@
 # Étape 0 — Prérequis & Installation
 
-*AI Forge Institute · Formation OpenClaw 2026*
+*AI Forge Institute · Formation OpenClaw 2026 · vérifié sur OpenClaw 2026.11.3*
 
-**Objectif :** préparer un environnement propre avant de lancer ton premier agent : Ollama, le modèle Llama 3 et la CLI OpenClaw doivent être opérationnels.
+**Objectif :** installer Ollama, un modèle local et OpenClaw, puis vérifier que ton assistant répond.
 
-## Prérequis système
+## Ce qu'il te faut
 
-**Requis**
-- OS : macOS 12+, Ubuntu 22.04+, ou Windows 11 avec WSL2
-- RAM : 8 Go minimum (16 Go recommandés pour Llama 3 8B en q8_0)
-- Disque : 20 Go libres (les modèles LLM sont volumineux)
-- Node.js v20+ LTS et npm v10+
-- curl
+- **Système** : macOS, Linux, ou Windows avec WSL2.
+- **Node.js** : 24.16 ou plus récent dans la série 24, ou 26.1 et plus (26 recommandé). Vérifie avec `node --version`.
+- **Mémoire** : 8 Go de RAM au minimum pour un petit modèle local, 16 Go ou plus pour être à l'aise.
+- **Docker** : facultatif ici, nécessaire pour la sandbox de la session 3.
+- **Un compte Telegram** pour la session 2.
 
-**Recommandé**
-- GPU NVIDIA (CUDA) ou Apple Silicon (Metal) pour une inférence rapide
-- Docker v24+ pour la sandbox isolée
-- Git, VS Code, PM2 (déploiement 24/7, session 4)
+> ℹ️ **Version de référence** — Ce cours est vérifié sur OpenClaw **2026.11.3** (10 novembre 2026). OpenClaw évolue vite : `openclaw update` met ton installation à jour, et `openclaw doctor --fix` migre une ancienne configuration.
 
-## 1. Installer Ollama
+## 1. Installer Ollama et un modèle local
 
-Ollama est le moteur d'inférence local qui fait tourner les LLM. Il expose une API REST sur `localhost:11434`. Aucune donnée ne quitte ta machine.
-
-Linux & macOS :
+Ollama fait tourner le modèle de langage sur ta machine. Ses données ne quittent pas ton ordinateur.
 
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
-ollama --version
-ollama serve &
-```
-
-Windows : activer WSL2 (`wsl --install -d Ubuntu-22.04`) puis lancer la même commande dans Ubuntu, ou utiliser l'installeur natif `OllamaSetup.exe`.
-
-## 2. Télécharger le modèle
-
-OpenClaw est configuré dans ce cours pour Llama 3 8B. La version `q8_0` donne la meilleure qualité (~8,5 Go) ; la version `q4_0` est plus légère si ta machine manque de RAM.
-
-```bash
-ollama pull llama3:8b-instruct-q8_0
-ollama pull llama3:8b-instruct-q4_0   # alternative légère
+ollama pull gemma4
 ollama list
 ```
 
-Test rapide de l'API (toujours utiliser le nom exact du modèle téléchargé) :
+Sur Windows, installe Ollama dans WSL2 avec la même commande, ou utilise l'installeur de [ollama.com/download](https://ollama.com/download).
+
+> 💡 **Quel modèle ?** — OpenClaw a besoin d'un modèle qui sait appeler des outils et dispose d'au moins 16 000 tokens de contexte. `gemma4` est le modèle que l'assistant d'OpenClaw propose par défaut. Avec plus de mémoire, `qwen3.5:27b` ou `gpt-oss:20b` sont plus fiables.
+
+## 2. Installer OpenClaw
+
+macOS, Linux et WSL2 :
 
 ```bash
-curl http://localhost:11434/api/generate \
-  -H "Content-Type: application/json" \
-  -d '{"model":"llama3:8b-instruct-q8_0","prompt":"Bonjour, es-tu opérationnel ?","stream":false}'
+curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
-La réponse JSON contient `response` (le texte généré), `done: true` et des métriques. Avec `stream: true`, les tokens arrivent au fil de l'eau.
+Windows (PowerShell) :
 
-## 3. Installer la CLI OpenClaw
+```powershell
+iwr -useb https://openclaw.ai/install.ps1 | iex
+```
 
-La CLI ajoute la couche « agent » au-dessus d'Ollama : outils, mémoire, boucle d'action, sandbox.
+Alternative avec npm :
 
 ```bash
-npm install -g @openclaw/sdk
+npm install -g openclaw@latest --allow-scripts=openclaw
+```
+
+## 3. L'assistant de configuration
+
+Le script d'installation lance l'assistant automatiquement. Choisis **Quick start** : il détecte ton modèle Ollama, le teste avec une vraie requête et enregistre la configuration. Si tu as installé avec npm, lance-le toi-même :
+
+```bash
+openclaw onboard --install-daemon
+```
+
+Cette variante ouvre l'assistant complet (modèle, canaux, skills) et installe en plus le service d'arrière-plan. Pour le modèle, choisis **Ollama**, puis **Local only**.
+
+> ⚠️ **Accès complet par défaut** — Le Quick start crée un agent `main` avec un accès complet à ta machine : il peut lire, écrire et exécuter des commandes. C'est pratique pour apprendre, mais nous resserrerons ces droits dans le module Sécurité.
+
+## 4. Vérifier l'installation
+
+```bash
 openclaw --version
 openclaw doctor
+openclaw status
+openclaw dashboard
 ```
 
-`openclaw doctor` vérifie Ollama, la présence du modèle et la version de Node.js.
+`openclaw doctor` diagnostique et répare la configuration. `openclaw dashboard` ouvre l'interface web locale de contrôle (Control UI), et `openclaw` tout seul ouvre une interface dans le terminal.
+
+## Le défi 15 minutes
+
+```bash quickstart
+# 1. Moteur IA local + modèle
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull gemma4
+
+# 2. OpenClaw + assistant (Quick start → Ollama)
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# 3. Vérifier et ouvrir le tableau de bord
+openclaw status
+openclaw dashboard
+```
 
 ## Checklist
 
-- `ollama --version` fonctionne
-- Le modèle `llama3:8b-instruct-q8_0` est téléchargé
-- L'API Ollama répond sur `localhost:11434`
-- `openclaw doctor` est au vert
-- Node.js v20+ et npm v10+ sont installés
+- `node --version` affiche 24.16+ ou 26.1+
+- Ollama est installé et `ollama list` affiche `gemma4`
+- OpenClaw est installé (`openclaw --version`)
+- L'assistant de configuration est terminé avec Ollama comme modèle
+- `openclaw status` et `openclaw doctor` ne signalent pas d'erreur
+- Le tableau de bord s'ouvre avec `openclaw dashboard`
 
-## À retenir
+## Quiz
 
-- Le port par défaut de l'API Ollama est **11434**.
-- Il faut appeler le modèle avec son **nom exact** (`llama3:8b-instruct-q8_0`), sinon Ollama cherche `llama3:latest`, qui n'est pas installé.
+**Quelle commande ouvre l'interface web de contrôle d'OpenClaw ?**
+- [ ] `openclaw serve`
+- [x] `openclaw dashboard`
+- [ ] `ollama run`
+- [ ] `openclaw init`
+> `openclaw dashboard` ouvre la Control UI locale grâce à un lien d'appairage à usage unique.
+
+**De quoi un modèle local a-t-il besoin pour piloter OpenClaw ?**
+- [ ] D'une carte graphique NVIDIA obligatoire
+- [ ] D'une connexion à l'API OpenAI
+- [x] De savoir appeler des outils et d'au moins 16 000 tokens de contexte
+- [ ] D'être téléchargé depuis ClawHub
+> L'assistant ne retient que les modèles Ollama capables d'appeler des outils, avec au moins 16 000 tokens de contexte.

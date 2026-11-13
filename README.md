@@ -1,6 +1,8 @@
 # AI Forge Institute — Formation OpenClaw 2026
 
-Plateforme de formation self-paced : construire, sécuriser et déployer un agent IA **local** (Ollama + OpenClaw), avec un parcours e-learning interactif (vidéos, podcasts, quiz, flashcards, slides) généré avec Google NotebookLM.
+Plateforme de formation self-paced : installer, personnaliser, sécuriser et faire tourner 24 h/24 un assistant [OpenClaw](https://github.com/openclaw/openclaw) branché sur un modèle **local** (Ollama), avec un parcours e-learning interactif (vidéos, podcasts, quiz, flashcards, slides) généré avec Google NotebookLM.
+
+Contenu vérifié sur **OpenClaw 2026.11.3** (13 novembre 2026). Voir `docs/COHERENCE.md`.
 
 | Page | Rôle |
 |---|---|
@@ -13,21 +15,34 @@ Les deux pages partagent la même progression (sessions validées et badges), st
 
 ```
 content/
-  curriculum.json          ← source unique : sessions, titres, badges, médias à générer, réglages NotebookLM
-  sessions/*.md            ← support écrit de chaque session (envoyé à NotebookLM comme source)
+  curriculum.json          ← source unique : sessions, badges, formateur, ressources, réglages NotebookLM
+  sessions/*.md            ← contenu de chaque session : pages web ET source NotebookLM
 assets/
   elearning.js / .css      ← lecteur e-learning (onglets Vidéo, Podcast, Quiz, Flashcards, Slides…)
 media/
   manifest.json            ← liste des médias disponibles, lue par les pages
   <session>/video.mp4, audio.m4a, quiz.json, flashcards.json, slides.pdf …
 tools/
+  build_course.py          ← génère les pages à partir de content/
   nlm_studio.py            ← pipeline NotebookLM (notebooklm-py)
 openclaw-skill/
   forge-nlm-studio/SKILL.md ← skill OpenClaw pour piloter le pipeline depuis un agent
-docs/COHERENCE.md          ← harmonisation des contenus et points ouverts
+docs/COHERENCE.md          ← version de référence, validation, points ouverts
+docs/GENERATIONS.md        ← liste des 28 générations NotebookLM à faire
 ```
 
 Pour ajouter un média à une session, il suffit de placer un `<div data-elearning="s2"></div>` dans une page (option `data-kinds="video,audio"` pour filtrer) : le lecteur se branche tout seul sur `media/manifest.json`. Sans média, il affiche « Supports multimédias en préparation ».
+
+## Modifier le cours
+
+On ne modifie pas le contenu des pages HTML à la main : on édite `content/sessions/*.md` ou `content/curriculum.json`, puis :
+
+```bash
+python3 tools/build_course.py          # régénère les zones <!-- BUILD:… --> des deux pages
+python3 tools/build_course.py --check  # vérifie que les pages sont à jour
+```
+
+Conventions Markdown : `## Section` = une carte ; ```` ```bash landing ```` = bloc repris sur la landing ; ```` ```bash quickstart ```` = terminal du défi 15 min ; `> 💡 **Titre** texte` = encadré (💡 ⚠️ ℹ️ ✅) ; `## Checklist …` = checklist interactive ; `## Quiz` = questions au format `**Question ?**` puis `- [x]` / `- [ ]` puis `> explication`. Le design, le JavaScript et l'en-tête des pages restent éditables à la main hors des zones `BUILD`.
 
 ## Générer les médias avec NotebookLM
 

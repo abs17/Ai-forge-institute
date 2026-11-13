@@ -256,7 +256,21 @@
     };
   }
 
+  // Formateur : renseigné dans content/curriculum.json (instructor). Vide → texte par défaut de la page.
+  function fillInstructor() {
+    const slots = document.querySelectorAll('[data-instructor]');
+    if (!slots.length) return;
+    getJSON('content/curriculum.json').then((cur) => {
+      const ins = cur.instructor || {};
+      if (!ins.name) return;
+      slots.forEach((el) => {
+        const v = ins[el.dataset.instructor];
+        if (v) el.textContent = v;
+      });
+    }).catch(() => { /* texte par défaut conservé */ });
+  }
+
   window.ForgeElearning = { mount, stats, manifest, KEYS };
-  const boot = () => document.querySelectorAll('[data-elearning]').forEach(mount);
+  const boot = () => { document.querySelectorAll('[data-elearning]').forEach(mount); fillInstructor(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
